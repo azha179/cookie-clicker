@@ -6,7 +6,6 @@ from functools import partial
 import random
 import csv
 
-
 #IMPORTANT INFO
 # self.cookies - amount of cookies
 #self.perclick - click multiplier
@@ -19,19 +18,20 @@ import csv
 class Cookies:
     def __init__(self, parent):
         
-        #parameters
+        #Default Variables
         self.closeprogram = False
-        self.cookies=0
-        self.perclick=1
-        self.upgrademultiplieramount=1
-        self.upgrademultiplier=1
+        self.cookies = 0 
+        self.perclick = 1
+        self.upgrademultiplieramount = 1
+        self.upgrademultiplier = 1
+        self.cps = 0
         
-        #bg colours
+        #Background colours
         bgcolour='#0d6bb8'
         upgradebg='#99d1ff'
         bupgradebg='#ffcf91'
         
-        root.protocol("WM_DELETE_WINDOW", self.quit)
+        root.protocol("WM_DELETE_WINDOW", self.quit) #assigns the X button for window to the quit command
         
         #Frame
         self.cookie_frame = Frame(parent, bg=bgcolour)
@@ -54,17 +54,17 @@ class Cookies:
         self.cookie_frame.grid(row=2)
         
         #Cookie button
-        self.cookieimage=PhotoImage(file = r"cookie.png")
-        self.hovercookieimage=PhotoImage(file = r"hovercookie.png")
-        self.goldcookieimage=PhotoImage(file = r"goldcookie.png")
-        self.hovergoldcookieimage=PhotoImage(file = r"hovergoldcookie.png")        
+        self.cookieimage = PhotoImage(file = r"cookie.png")
+        self.hovercookieimage = PhotoImage(file = r"hovercookie.png")
+        self.goldcookieimage = PhotoImage(file = r"goldcookie.png")
+        self.hovergoldcookieimage = PhotoImage(file = r"hovergoldcookie.png")        
         self.cookie_button = Button(self.cookie_frame, image=self.cookieimage, command=self.cookie_click, highlightthickness = 0, bd = 0, bg=bgcolour, activebackground=bgcolour)
         self.cookie_button.grid(row=0, column=0)
         self.cookie_button.bind("<Enter>", self.hovercookie)
         self.cookie_button.bind("<Leave>", self.unhovercookie)        
         
         #Row 3 buttons frame
-        self.buttonframe=Frame(self.cookie_frame, bg=bgcolour)
+        self.buttonframe = Frame(self.cookie_frame, bg=bgcolour)
         self.buttonframe.grid(row=3, pady=20)
         
         #Help
@@ -79,7 +79,7 @@ class Cookies:
         self.quit_button.bind("<Enter>", self.hoverquit)
         self.quit_button.bind("<Leave>", self.unhoverquit)
         
-        # Upgrades
+        # Buildings
         
         #Building Upgrades Frame
         self.buildingupgradeframe = Frame(self.upgradesframe, highlightthickness=3, highlightbackground='#a37340', bg=bupgradebg)
@@ -90,8 +90,6 @@ class Cookies:
         self.cookiespersecond.grid(row=0, columnspan=3, pady=10)
         
         #Cookies per second count
-        self.cps=0
-        
         self.cpslabel = Label(self.upgradesframe, text='0.0 cps', font='arial 12', pady=5, justify=CENTER, bg=upgradebg)
         self.cpslabel.grid(row=1, columnspan=3)
         
@@ -203,45 +201,21 @@ class Cookies:
         self.bank_amount.grid(row=8, column=1)        
         
         self.bank_buy = Button(self.upgradesframe, command=lambda:[self.bank(), self.startidletimer()], image=self.buybuttonimage, highlightthickness = 0, bd = 0, bg=upgradebg, activebackground=upgradebg, pady=10)
-        self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)                   
-        
-        #Bank
-        #self.banks=0
-        #self.bank_price=1400000
-        #self.basebank_price=1400000
-        
-        #self.bank_label = Label(self.upgradesframe, text='Bank: 1.40000 million Cookies', font='arial 14', padx=20, pady=10, bg=upgradebg)
-        #self.bank_label.grid(row=8,column=0, sticky=W)
-        
-        #self.bank_amount = Label(self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
-        #self.bank_amount.grid(row=8, column=1)        
-        
-        #self.bank_buy = Button(self.upgradesframe, text='Buy', font='arial 14 bold', padx=20, pady=10, command=lambda:[self.bank(), self.startidletimer()], state=DISABLED, fg='green4')
-        #self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)                  
+        self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)                                    
         
         # Building Upgrades
         
         # Label
         self.bupgradelabel = Label(self.buildingupgradeframe, text='Upgrades', font='arial 18 bold', justify=CENTER, bg=bupgradebg)
-        self.bupgradelabel.grid(row=0, columnspan=3, pady=10, sticky=N)
+        self.bupgradelabel.grid(row=0, columnspan=2, pady=10, padx=10, sticky=N)
         
-       
+        self.bupgradeexpandbutton = Button(self.buildingupgradeframe, text='+', font='arial 22 bold', bg='#ffce8f', padx=10, command = self.expandupgrade, highlightthickness = 0, bd = 0, activebackground='#ffce8f', fg='dark grey')
+        self.bupgradeexpandbutton.grid(row=0, column=2, sticky=NE)        
         
         # Cursor Upgrade
-        
         self.cursororder = 1
-        self.cursorupgradebuyable = False
         self.thousandfingersamount = 0
         self.cursorupgradeprice = 100
-        
-        self.cursorupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Cursor: 100 Cookies', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-        self.cursorupgradelabel.grid(row=1, column=0, sticky=W)
-        
-        self.cursorupgradetext = Label(self.buildingupgradeframe, text='Multiplier: 1x', font='arial 10', padx=20, pady=10, bg=bupgradebg)
-        self.cursorupgradetext.grid(row=1, column=1)
-        
-        self.cursorupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.cursorupgrade, image=self.redbuybutton, highlightthickness = 0, bd = 0, bg=bupgradebg, activebackground=bupgradebg)
-        self.cursorupgradebutton.grid(row=1, column=2, sticky=E, padx=20, pady=10)
         
         self.cursorupgrade1 = CursorUpgrades(self, 'Reinforced index finger', 100, 1, 1, 'times', 2)
         self.cursorupgrade2 = CursorUpgrades(self, 'Carpal tunnel prevention cream', 500, 1, 2, 'times', 2)
@@ -250,56 +224,49 @@ class Cookies:
         self.cursorupgrade5 = CursorUpgrades(self, 'Million fingers', 10000000, 50, 5, 'timesthousand', 5)
         self.cursorupgrade6 = CursorUpgrades(self, 'Billion fingers', 100000000, 100, 6, 'timesthousand', 10)
         
+        self.cursorupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Cursor: 100 Cookies', font='arial 14', padx=20, pady=10, bg=bupgradebg)
+        
+        self.cursorupgradetext = Label(self.buildingupgradeframe, text='Multiplier: 1x', font='arial 10', padx=20, pady=10, bg=bupgradebg)
+        
+        self.cursorupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.cursorupgrade, image=self.redbuybutton, highlightthickness = 0, bd = 0, bg=bupgradebg, activebackground=bupgradebg)
         
         # Grandma
         self.grandmaupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Grandma', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-        self.grandmaupgradelabel.grid(row=2, column=0, sticky=W)
         
         self.grandmamultiplier = Label(self.buildingupgradeframe, text='Multiplier: 1x', font='arial 10', padx=20, pady=10, bg=bupgradebg)
-        self.grandmamultiplier.grid(row=2, column=1)
         
         self.grandmaupgradebutton = Button(self.buildingupgradeframe, text='Buy', font='arial 14 bold', padx=20, pady=10, command=self.cursorupgrade, fg='green4')
-        self.grandmaupgradebutton.grid(row=2, column=2, sticky=E, padx=20, pady=10)
         
         # Farm
         self.farmupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Farm', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-        self.farmupgradelabel.grid(row=3, column=0, sticky=W)
         
         self.farmmultiplier = Label(self.buildingupgradeframe, text='Multiplier: 1x', font='arial 10', padx=20, pady=10, bg=bupgradebg)
-        self.farmmultiplier.grid(row=3, column=1)
         
         self.farmupgradebutton = Button(self.buildingupgradeframe, text='Buy', font='arial 14 bold', padx=20, pady=10, command=self.b, state=DISABLED, fg='green4')
-        self.farmupgradebutton.grid(row=3, column=2, sticky=E, padx=20, pady=10)
         
         # Mine
         self.mineupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Mine', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-        self.mineupgradelabel.grid(row=4, column=0, sticky=W)
         
         self.minemultiplier = Label(self.buildingupgradeframe, text='Multiplier: 1x', font='arial 10', padx=20, pady=10, bg=bupgradebg)
-        self.minemultiplier.grid(row=4, column=1)
         
         self.mineupgradebutton = Button(self.buildingupgradeframe, text='Buy', font='arial 14 bold', padx=20, pady=10, command=self.b, state=DISABLED, fg='green4')
-        self.mineupgradebutton.grid(row=4, column=2, sticky=E, padx=20, pady=10)
         
         # Factory
         self.factoryupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Factory', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-        self.factoryupgradelabel.grid(row=5, column=0, sticky=W)
         
         self.factorymultiplier = Label(self.buildingupgradeframe, text='Multiplier: 1x', font='arial 10', padx=20, pady=10, bg=bupgradebg)
-        self.factorymultiplier.grid(row=5, column=1)
         
         self.factoryupgradebutton = Button(self.buildingupgradeframe, text='Buy', font='arial 14 bold', padx=20, pady=10, command=self.b, state=DISABLED, fg='green4')
-        self.factoryupgradebutton.grid(row=5, column=2, sticky=E, padx=20, pady=10)        
         
-        self.pricecheck()        
+        self.pricecheck()             
+        
         
         def spawngoldcookie(): # Function which creates an event every 30-180 seconds which spawns a gold cookie worth 1000% of cookies per click 
             while True:
                 if self.closeprogram == True:
-                    print('gold close')
                     break
                 else:
-                    randomtime = random.randint(2, 5)
+                    randomtime = random.randint(2, 5) #random number for seconds to before golden cookie occurs
                     for i in range(randomtime): 
                         time.sleep(1)
                         if self.closeprogram == True:
@@ -333,7 +300,6 @@ class Cookies:
         def idlecookies(): # Background loop for idle upgrades 
             while True:
                 if self.closeprogram == True:
-                    print('loop close')
                     break
                 else:
                     try:
@@ -368,7 +334,6 @@ class Cookies:
                         except ZeroDivisionError: #in the case thread starts when cps = 0, ignores error.
                             pass
                     except RuntimeError: # break loop when program is closed
-                        print('Program ended')
                         break
         
         self.backgroundpersec=threading.Thread(name='idlecookies',target=idlecookies) #create threading variable
@@ -378,18 +343,12 @@ class Cookies:
         pass
     
     def startidletimer(self): #starts idle thread
-        
         try:
             self.backgroundpersec.start()
-            print('y')
-                
         except RuntimeError: # doesnt start if already started
-            print('n')
             pass
             
     def numbercheck(self, inputed): #function which takes in a number then shortens it if it is a large number e.g. 1,000,000,000 = 1 billion
-        
-        
         num=math.floor(inputed)
         if 10 > len(str(num)) >= 7:
             numstr = str(num)
@@ -501,8 +460,7 @@ class Cookies:
             return inputed
             
     
-    def pricecheck(self): #Checks the cookie count and prices then enables/disables upgrade buy buttons accordingly
-        
+    def pricecheck(self): #Checks the cookie count and prices then enables/disables upgrade buy buttons accordingly   
         if self.cookies >= self.cursor_price:
             self.cursor_buy.config(image=self.buybuttonimage)
             self.cursor_buyable = True
@@ -663,28 +621,28 @@ class Cookies:
         if self.cursorupgradebuyable == True:
             if self.cursororder == 1:
                 self.cursorupgradeprice = self.cursorupgrade2.price
-                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.cursorupgrade2.price)) 
+                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.numbercheck(self.cursorupgrade2.price))) 
                 self.cursorupgradelabel.configure(text=cursorsupgrade_text)                   
                 self.cursorupgrade1.buy(self)
                              
             elif self.cursororder == 2:
                 self.cursorupgradeprice = self.cursorupgrade3.price
-                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.cursorupgrade3.price)) 
+                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.numbercheck(self.cursorupgrade3.price))) 
                 self.cursorupgradelabel.configure(text=cursorsupgrade_text)                      
                 self.cursorupgrade2.buy(self)
             elif self.cursororder == 3:
                 self.cursorupgradeprice = self.cursorupgrade4.price
-                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.cursorupgrade4.price)) 
+                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.numbercheck(self.cursorupgrade4.price))) 
                 self.cursorupgradelabel.configure(text=cursorsupgrade_text)                      
                 self.cursorupgrade3.buy(self)
             elif self.cursororder == 4:
                 self.cursorupgradeprice = self.cursorupgrade5.price
-                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.cursorupgrade5.price)) 
+                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.numbercheck(self.cursorupgrade5.price)))
                 self.cursorupgradelabel.configure(text=cursorsupgrade_text)                      
                 self.cursorupgrade4.buy(self)
             elif self.cursororder == 5:
                 self.cursorupgradeprice = self.cursorupgrade6.price
-                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.cursorupgrade6.price)) 
+                cursorsupgrade_text=('Upgrade Cursor: {} Cookies'.format(self.numbercheck(self.cursorupgrade6.price)))
                 self.cursorupgradelabel.configure(text=cursorsupgrade_text)                      
                 self.cursorupgrade5.buy(self)
             elif self.cursororder == 6:
@@ -858,7 +816,89 @@ class Cookies:
         except ValueError:
             cps_text=('{} cps'.format(self.numbercheck(self.cps)))
         self.cpslabel.configure(text=cps_text)    
-            
+        
+        
+    def collapseupgrade(self):
+        self.cursorupgradelabel.grid_forget()
+        self.cursorupgradetext.grid_forget()
+        self.cursorupgradebutton.grid_forget()
+        
+        # Grandma
+        self.grandmaupgradelabel.grid_forget()
+        
+        self.grandmamultiplier.grid_forget()
+        
+        self.grandmaupgradebutton.grid_forget()
+        
+        # Farm
+        self.farmupgradelabel.grid_forget()
+        
+        self.farmmultiplier.grid_forget()
+        
+        self.farmupgradebutton.grid_forget()
+        
+        # Mine
+        self.mineupgradelabel.grid_forget()
+        
+        self.minemultiplier.grid_forget()
+        
+        self.mineupgradebutton.grid_forget()
+        
+        # Factory
+        self.factoryupgradelabel.grid_forget()
+        
+        self.factorymultiplier.grid_forget()
+        
+        self.factoryupgradebutton.grid_forget()    
+        
+        self.bupgradeexpandbutton.configure(command = self.expandupgrade, text='+')    
+        
+    def expandupgrade(self):
+        self.bupgradeexpandbutton.configure(command = self.collapseupgrade, text='-')
+        
+        #bg colours
+        bgcolour='#0d6bb8'
+        upgradebg='#99d1ff'
+        bupgradebg='#ffcf91'
+        
+        # Cursor Upgrade
+        
+        self.cursorupgradelabel.grid(row=1, column=0, sticky=W)
+        
+        self.cursorupgradetext.grid(row=1, column=1)
+        
+        self.cursorupgradebutton.grid(row=1, column=2, sticky=E, padx=20, pady=10)
+        
+        
+        # Grandma
+        self.grandmaupgradelabel.grid(row=2, column=0, sticky=W)
+        
+        self.grandmamultiplier.grid(row=2, column=1)
+        
+        self.grandmaupgradebutton.grid(row=2, column=2, sticky=E, padx=20, pady=10)
+        
+        # Farm
+        self.farmupgradelabel.grid(row=3, column=0, sticky=W)
+        
+        self.farmmultiplier.grid(row=3, column=1)
+        
+        self.farmupgradebutton.grid(row=3, column=2, sticky=E, padx=20, pady=10)
+        
+        # Mine
+        self.mineupgradelabel.grid(row=4, column=0, sticky=W)
+        
+        self.minemultiplier.grid(row=4, column=1)
+        
+        self.mineupgradebutton.grid(row=4, column=2, sticky=E, padx=20, pady=10)
+        
+        # Factory
+        self.factoryupgradelabel.grid(row=5, column=0, sticky=W)
+        
+        self.factorymultiplier.grid(row=5, column=1)
+        
+        self.factoryupgradebutton.grid(row=5, column=2, sticky=E, padx=20, pady=10)        
+        
+        self.pricecheck()         
     def hoverhelp(self, parent):
         parent.widget['background'] = '#21c716'
     
@@ -945,7 +985,6 @@ class CursorUpgrades:
         parent.pricecheck()
         parent.changecookietext()
         if self.effectfunction == 'times':
-            print(self.effectnumber)
             parent.perclick = parent.perclick * self.effectnumber
             parent.cursorcps = parent.cursorcps * self.effectnumber
             parent.cpscalc()
@@ -961,10 +1000,6 @@ class CursorUpgrades:
             parent.perclick = parent.perclick + self.totalbuildingsexceptcursors*parent.thousandfingersamount
             parent.cursorcps = parent.cursorcps + self.totalbuildingsexceptcursors*parent.thousandfingersamount
             parent.cpscalc()
-        
-        print(parent.cookies)
-        print('test')
-        pass
         
 # main routine
 if __name__ == "__main__":
