@@ -36,7 +36,7 @@ class Cookies:
         self.cookie_heading.grid(row=0)
 
         # upgrade frame (column1)
-        self.buildingandupgradeframe = Frame(self.cookie_frame, bg=upgradebg)
+        self.buildingandupgradeframe = Frame(self.cookie_frame, bg='#b5deff')
         self.buildingandupgradeframe.grid(
             row=0, column=1, rowspan=10, padx=20, pady=10)
 
@@ -83,7 +83,7 @@ class Cookies:
 
         # Building Frame
         self.upgradesframe = Frame(
-            self.buildingandupgradeframe, highlightbackground='#01365e', highlightthickness=3, bg=upgradebg)
+            self.buildingandupgradeframe, highlightbackground='#7098b8', highlightthickness=3, bg=upgradebg)
         self.upgradesframe.grid(
             row=0, column=0, rowspan=10, padx=20, pady=10)
 
@@ -96,12 +96,12 @@ class Cookies:
         # Cookies per second
         self.cookiespersecond = Label(
             self.upgradesframe, text='Buildings', font='arial 26 bold', justify=CENTER, bg=upgradebg)
-        self.cookiespersecond.grid(row=0, columnspan=3, pady=10)
+        self.cookiespersecond.grid(row=0, columnspan=3, pady=10, padx=10)
 
         # Expand
         self.buildingexpandbutton = Button(self.upgradesframe, text='-', font='arial 22 bold', bg=upgradebg,
                                            padx=10, command=self.collapsebuilding, highlightthickness=0, bd=0, activebackground=upgradebg, fg='dark grey')
-        self.buildingexpandbutton.grid(row=0, column=3, sticky=NE)
+        self.buildingexpandbutton.grid(row=0, column=3, sticky=E)
 
         # Cookies per second count
         self.cpslabel = Label(self.upgradesframe, text='0.0 cps',
@@ -244,7 +244,7 @@ class Cookies:
 
         # Info Button
         self.bupgradeinfobutton = Button(self.buildingupgradeframe, text='Info', font='arial 14 bold', bg='#ffce8f',
-                                         padx=10, highlightthickness=0, bd=0, activebackground='#ffce8f', fg='dark grey', command=self.upgradeinfo)
+                                         padx=10, highlightthickness=0, bd=0, activebackground='#ffce8f', fg='#2a7dbf', command=self.upgradeinfo)
         self.bupgradeinfobutton.grid(row=0, column=0, sticky=W)
 
         # Label
@@ -663,41 +663,72 @@ class Cookies:
             self.pricecalc()
 
     def pricecalc(self):  # calculates the prices of upgrade purchases depending on the upgrade multiplier selected
-        self.cursor_price = math.ceil(
-            self.basecursor_price * self.upgrademultiplier)
-        cursorprice_text = ('Cursor:\n{} Cookies'.format(
-            self.numbercheck(self.cursor_price)))
-        self.cursor_label.configure(text=cursorprice_text)
+        if self.upgrademultiplieramount == 1:
+            self.cursor_price = self.basecursor_price
+            cursorprice_text = ('Cursor:\n{} Cookies'.format(
+                self.numbercheck(self.cursor_price)))
+            self.cursor_label.configure(text=cursorprice_text)
 
-        self.grandma_price = math.ceil(
-            self.basegrandma_price * self.upgrademultiplier)
-        grandmaprice_text = ('Grandma:\n{} Cookies'.format(
-            self.numbercheck(self.grandma_price)))
-        self.grandma_label.configure(text=grandmaprice_text)
+            self.grandma_price = self.basegrandma_price
+            grandmaprice_text = ('Grandma:\n{} Cookies'.format(
+                self.numbercheck(self.grandma_price)))
+            self.grandma_label.configure(text=grandmaprice_text)
 
-        self.farm_price = math.ceil(
-            self.basefarm_price * self.upgrademultiplier)
-        farmprice_text = ('Farm:\n{} Cookies'.format(
-            self.numbercheck(self.farm_price)))
-        self.farm_label.configure(text=farmprice_text)
+            self.farm_price = self.basefarm_price
+            farmprice_text = ('Farm:\n{} Cookies'.format(
+                self.numbercheck(self.farm_price)))
+            self.farm_label.configure(text=farmprice_text)
 
-        self.mine_price = math.ceil(
-            self.basemine_price * self.upgrademultiplier)
-        mineprice_text = ('Mine:\n{} Cookies'.format(
-            self.numbercheck(self.mine_price)))
-        self.mine_label.configure(text=mineprice_text)
+            self.mine_price = self.basemine_price
+            mineprice_text = ('Mine:\n{} Cookies'.format(
+                self.numbercheck(self.mine_price)))
+            self.mine_label.configure(text=mineprice_text)
 
-        self.factory_price = math.ceil(
-            self.basefactory_price * self.upgrademultiplier)
-        factoryprice_text = ('Factory:\n{} Cookies'.format(
-            self.numbercheck(self.factory_price)))
-        self.factory_label.configure(text=factoryprice_text)
+            self.factory_price = self.basefactory_price
+            factoryprice_text = ('Factory:\n{} Cookies'.format(
+                self.numbercheck(self.factory_price)))
+            self.factory_label.configure(text=factoryprice_text)
 
-        self.bank_price = math.ceil(
-            self.basebank_price * self.upgrademultiplier)
-        bankprice_text = ('Bank:\n{} Cookies'.format(
-            self.numbercheck(self.bank_price)))
-        self.bank_label.configure(text=bankprice_text)
+            self.bank_price = self.basebank_price
+            bankprice_text = ('Bank:\n{} Cookies'.format(
+                self.numbercheck(self.bank_price)))
+            self.bank_label.configure(text=bankprice_text)
+        else:
+            self.cursor_price = math.ceil(
+                self.basecursor_price * self.upgrademultiplier)
+            cursorprice_text = ('Cursor:\n{} Cookies'.format(
+                self.numbercheck(self.cursor_price)))
+            self.cursor_label.configure(text=cursorprice_text)
+
+            self.grandma_price = math.ceil(
+                self.basegrandma_price * self.upgrademultiplier)
+            grandmaprice_text = ('Grandma:\n{} Cookies'.format(
+                self.numbercheck(self.grandma_price)))
+            self.grandma_label.configure(text=grandmaprice_text)
+
+            self.farm_price = math.ceil(
+                self.basefarm_price * self.upgrademultiplier)
+            farmprice_text = ('Farm:\n{} Cookies'.format(
+                self.numbercheck(self.farm_price)))
+            self.farm_label.configure(text=farmprice_text)
+
+            self.mine_price = math.ceil(
+                self.basemine_price * self.upgrademultiplier)
+            mineprice_text = ('Mine:\n{} Cookies'.format(
+                self.numbercheck(self.mine_price)))
+            self.mine_label.configure(text=mineprice_text)
+
+            self.factory_price = math.ceil(
+                self.basefactory_price * self.upgrademultiplier)
+            factoryprice_text = ('Factory:\n{} Cookies'.format(
+                self.numbercheck(self.factory_price)))
+            self.factory_label.configure(text=factoryprice_text)
+
+            self.bank_price = math.ceil(
+                self.basebank_price * self.upgrademultiplier)
+            bankprice_text = ('Bank:\n{} Cookies'.format(
+                self.numbercheck(self.bank_price)))
+            self.bank_label.configure(text=bankprice_text)
 
         # Change button state
         self.pricecheck()
@@ -985,7 +1016,9 @@ class Cookies:
         self.cpslabel.configure(text=cps_text)
 
     def collapsebuilding(self):
-        self.cookiespersecond.grid_forget()
+        # self.cookiespersecond.grid_forget()
+        self.buildingexpandbutton.configure(
+            text='+', command=self.expandbuilding)
 
         self.cpslabel.grid_forget()
         self.buymultiplierframe.grid_forget()
@@ -1035,7 +1068,9 @@ class Cookies:
         self.bank_buy.grid_forget()
 
     def expandbuilding(self):
-        self.cookiespersecond.grid(row=0, columnspan=3, pady=10)
+        #self.cookiespersecond.grid(row=0, columnspan=3, pady=10)
+        self.buildingexpandbutton.configure(
+            text='-', command=self.collapsebuilding)
 
         self.cpslabel.grid(row=1, columnspan=3)
 
@@ -1211,8 +1246,6 @@ class Cookies:
 
     def help(self):  # help button function
         get_help = Help(self)
-        get_help.help_text.configure(
-            text="Click on the Cookie to get a cookie! Use your cookies to buy upgrades which boost your cookie production.")
 
     def upgradeinfo(self):
         get_info = UpgradeInfo(self)
@@ -1220,43 +1253,25 @@ class Cookies:
 
 class Help:
 
-    def __init__(self, partner):
+    def __init__(self, parent):
+        parent.help_button.configure(state=DISABLED)
+        self.box = Toplevel()
+        self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
+        self.frame = Frame(self.box, bg='#fab875', width=600, height=600)
+        self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.title = Label(self.frame, font='Arial 16 bold',
+                           text='How to play Cookie Clicker', justify=CENTER, pady=10, bg='#fab875')
+        self.title.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.text = Label(self.frame, font='Arial 12', text='Click the cookie to get a cookie! Use your cookies to purchase buildings which can generate you even more cookies! Upgrade your buildings too boost their cookie production even more!',
+                          pady=10, padx=20, wraplength=500, bg='#fab875')
+        self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.button = Button(self.frame, text="Dismiss", width=10,
+                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5)
+        self.button.pack(side=BOTTOM, pady=10, expand=TRUE)
 
-        bg_colour = "#a1a8ff"
-
-        # Disable button
-        partner.help_button.config(state=DISABLED)
-
-        # Set up child window
-        self.help_box = Toplevel()
-
-        # Press Cross
-        self.help_box.protocol(
-            "WM_DELETE_WINDOW", partial(self.close_help, partner))
-
-        # Frame setup
-        self.help_frame = Frame(
-            self.help_box, width=300, height=200, bg=bg_colour)
-        self.help_frame.grid()
-
-        # Heading
-        how_heading = Label(self.help_frame, text="Help / Info",
-                            font="arial 16 bold", bg=bg_colour, pady=10)
-        how_heading.grid(row=0)
-
-        # Body Text
-        self.help_text = Label(self.help_frame, text="", justify=CENTER,
-                               width=40, bg=bg_colour, wrap=250, font="arial 12")
-        self.help_text.grid(row=1, column=0)
-
-        # Dismiss button
-        dismiss_btn = Button(self.help_frame, text="Dismiss", width=10, bg="white", font="arial 10 bold",
-                             command=partial(self.close_help, partner))
-        dismiss_btn.grid(row=2, pady=10)
-
-    def close_help(self, partner):
-        partner.help_button.config(state=NORMAL)
-        self.help_box.destroy()
+    def close(self, parent):
+        self.box.destroy()
+        parent.help_button.configure(state=NORMAL)
 
 
 class UpgradeInfo:
