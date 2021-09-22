@@ -36,7 +36,7 @@ class Cookies:
         self.cookie_heading.grid(row=0)
 
         # upgrade frame (column1)
-        self.buildingandupgradeframe = Frame(self.cookie_frame, bg='#b5deff')
+        self.buildingandupgradeframe = Frame(self.cookie_frame, bg=bgcolour)
         self.buildingandupgradeframe.grid(
             row=0, column=1, rowspan=10, padx=20, pady=10)
 
@@ -243,6 +243,7 @@ class Cookies:
         # Building Upgrades
 
         # Info Button
+        self.upgradeinfolist = []
         self.bupgradeinfobutton = Button(self.buildingupgradeframe, text='Info', font='arial 14 bold', bg='#ffce8f',
                                          padx=10, highlightthickness=0, bd=0, activebackground='#ffce8f', fg='#2a7dbf', command=self.upgradeinfo)
         self.bupgradeinfobutton.grid(row=0, column=0, sticky=W)
@@ -274,9 +275,23 @@ class Cookies:
             self, 'Million fingers', 10000000, 50, 5, 'timesthousand', 5, 'Multiplies the gain from Thousand fingers by 5.')
         self.cursorupgrade6 = CursorUpgrades(self, 'Billion fingers', 100000000, 100,
                                              6, 'timesthousand', 10, 'Multiplies the gain from Thousand fingers by 10.')
+        self.cursorupgrade7 = CursorUpgrades(self, 'Trillion fingers', 1000000000, 150,
+                                             7, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
+        self.cursorupgrade8 = CursorUpgrades(self, 'Quadrillion fingers', 10000000000, 200,
+                                             8, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
+        self.cursorupgrade9 = CursorUpgrades(self, 'Quintillion fingers', 10000000000000, 250,
+                                             9, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
+        self.cursorupgrade10 = CursorUpgrades(self, 'Sextillion fingers', 10000000000000000, 300,
+                                              10, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
+        self.cursorupgrade11 = CursorUpgrades(self, 'Septillion fingers', 10000000000000000000, 350,
+                                              11, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
+        self.cursorupgrade12 = CursorUpgrades(self, 'Octillion fingers', 10000000000000000000000, 400,
+                                              12, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
+        self.cursorupgrade13 = CursorUpgrades(self, 'Nonillion fingers', 10000000000000000000000000, 450,
+                                              13, 'timesthousand', 20, 'Multiplies the gain from Thousand fingers by 20.')
 
-        self.cursorupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Cursor:\n100 Cookies',
-                                        font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT)
+        self.cursorupgradelabel = Label(self.buildingupgradeframe, text='Reinforced index finger:\n100 Cookies',
+                                        font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
 
         self.cursorupgradetext = Label(self.buildingupgradeframe, text=self.cursorupgrade1.descriptiontext,
                                        font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
@@ -301,8 +316,8 @@ class Cookies:
         self.grandmaupgrade6 = GrandmaUpgrades(
             self, 'Aging agents', 50000000000, 150, 6, 2, 'Grandmas are twice as efficient.')
 
-        self.grandmaupgradelabel = Label(self.buildingupgradeframe, text='Upgrade Grandma:\n1000 Cookies',
-                                         font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT)
+        self.grandmaupgradelabel = Label(self.buildingupgradeframe, text='Forwards from grandma:\n1000 Cookies',
+                                         font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
 
         self.grandmaupgradetext = Label(self.buildingupgradeframe, text=self.grandmaupgrade1.descriptiontext,
                                         font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
@@ -762,52 +777,48 @@ class Cookies:
     def cursorupgrade(self):
         if self.cursorupgradebuyable == True:
             if self.cursororder == 1:
-                self.cursorupgradeprice = self.cursorupgrade2.price
-                cursorsupgrade_text = ('Upgrade Cursor:\n{} Cookies'.format(
-                    self.numbercheck(self.cursorupgrade2.price)))
-                self.cursorupgradelabel.configure(text=cursorsupgrade_text)
-                self.cursorupgradetext.configure(
-                    text=self.cursorupgrade2.descriptiontext)
+                self.cursorupgrade2.updateinfo(self)
                 self.cursorupgrade1.buy(self)
-
             elif self.cursororder == 2:
-                self.cursorupgradeprice = self.cursorupgrade3.price
-                cursorsupgrade_text = ('Upgrade Cursor:\n{} Cookies'.format(
-                    self.numbercheck(self.cursorupgrade3.price)))
-                self.cursorupgradelabel.configure(text=cursorsupgrade_text)
-                self.cursorupgradetext.configure(
-                    text=self.cursorupgrade3.descriptiontext)
+                self.cursorupgrade3.updateinfo(self)
                 self.cursorupgrade2.buy(self)
             elif self.cursororder == 3:
-                self.cursorupgradeprice = self.cursorupgrade4.price
-                cursorsupgrade_text = ('Upgrade Cursor:\n{} Cookies'.format(
-                    self.numbercheck(self.cursorupgrade4.price)))
-                self.cursorupgradelabel.configure(text=cursorsupgrade_text)
-                self.cursorupgradetext.configure(
-                    text=self.cursorupgrade4.descriptiontext)
+                self.cursorupgrade4.updateinfo(self)
                 self.cursorupgrade3.buy(self)
             elif self.cursororder == 4:
-                self.cursorupgradeprice = self.cursorupgrade5.price
-                cursorsupgrade_text = ('Upgrade Cursor:\n{} Cookies'.format(
-                    self.numbercheck(self.cursorupgrade5.price)))
-                self.cursorupgradelabel.configure(text=cursorsupgrade_text)
-                self.cursorupgradetext.configure(
-                    text=self.cursorupgrade5.descriptiontext)
+                self.cursorupgrade5.updateinfo(self)
                 self.cursorupgrade4.buy(self)
             elif self.cursororder == 5:
-                self.cursorupgradeprice = self.cursorupgrade6.price
-                cursorsupgrade_text = ('Upgrade Cursor:\n{} Cookies'.format(
-                    self.numbercheck(self.cursorupgrade6.price)))
-                self.cursorupgradelabel.configure(text=cursorsupgrade_text)
-                self.cursorupgradetext.configure(
-                    text=self.cursorupgrade6.descriptiontext)
+                self.cursorupgrade6.updateinfo(self)
                 self.cursorupgrade5.buy(self)
             elif self.cursororder == 6:
+                self.cursorupgrade7.updateinfo(self)
                 self.cursorupgrade6.buy(self)
-            # if self.cursororder == 7:
-                # self.cursorupgrade7.buy(self)
-            # if self.cursororder == 8:
-                # self.cursorupgrade8.buy(self)
+            elif self.cursororder == 7:
+                self.cursorupgrade8.updateinfo(self)
+                self.cursorupgrade7.buy(self)
+            elif self.cursororder == 8:
+                self.cursorupgrade9.updateinfo(self)
+                self.cursorupgrade8.buy(self)
+            elif self.cursororder == 9:
+                self.cursorupgrade10.updateinfo(self)
+                self.cursorupgrade9.buy(self)
+            elif self.cursororder == 10:
+                self.cursorupgrade11.updateinfo(self)
+                self.cursorupgrade10.buy(self)
+            elif self.cursororder == 11:
+                self.cursorupgrade12.updateinfo(self)
+                self.cursorupgrade11.buy(self)
+            elif self.cursororder == 12:
+                self.cursorupgrade13.updateinfo(self)
+                self.cursorupgrade12.buy(self)
+            elif self.cursororder == 13:
+                self.cursorupgradeprice = math.inf
+                self.cursorupgradelabel.configure(
+                    text='Cursor Upgrades Maxed')
+                self.cursorupgradetext.configure(
+                    text='')
+                self.cursorupgrade13.buy(self)
 
     def grandma(self):  # function for buying a grandma
         if self.grandma_buyable == True:
@@ -839,8 +850,8 @@ class Cookies:
         if self.grandmaupgradebuyable == True:
             if self.grandmaorder == 1:
                 self.grandmaupgradeprice = self.grandmaupgrade2.price
-                grandmasupgrade_text = ('Upgrade Grandma:\n{} Cookies'.format(
-                    self.numbercheck(self.grandmaupgrade2.price)))
+                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
+                    self.grandmaupgrade2.name, self.numbercheck(self.grandmaupgrade2.price)))
                 self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
                 self.grandmaupgradetext.configure(
                     text=self.grandmaupgrade2.descriptiontext)
@@ -848,32 +859,32 @@ class Cookies:
 
             elif self.grandmaorder == 2:
                 self.grandmaupgradeprice = self.grandmaupgrade3.price
-                grandmasupgrade_text = ('Upgrade Grandma:\n{} Cookies'.format(
-                    self.numbercheck(self.grandmaupgrade3.price)))
+                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
+                    self.grandmaupgrade3.name, self.numbercheck(self.grandmaupgrade3.price)))
                 self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
                 self.grandmaupgradetext.configure(
                     text=self.grandmaupgrade3.descriptiontext)
                 self.grandmaupgrade2.buy(self)
             elif self.grandmaorder == 3:
                 self.grandmaupgradeprice = self.grandmaupgrade4.price
-                grandmasupgrade_text = ('Upgrade Grandma:\n{} Cookies'.format(
-                    self.numbercheck(self.grandmaupgrade4.price)))
+                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
+                    self.grandmaupgrade4.name, self.numbercheck(self.grandmaupgrade4.price)))
                 self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
                 self.grandmaupgradetext.configure(
                     text=self.grandmaupgrade4.descriptiontext)
                 self.grandmaupgrade3.buy(self)
             elif self.grandmaorder == 4:
                 self.grandmaupgradeprice = self.grandmaupgrade5.price
-                grandmasupgrade_text = ('Upgrade Grandma:\n{} Cookies'.format(
-                    self.numbercheck(self.grandmaupgrade5.price)))
+                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
+                    self.grandmaupgrade5.name, self.numbercheck(self.grandmaupgrade5.price)))
                 self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
                 self.grandmaupgradetext.configure(
                     text=self.grandmaupgrade5.descriptiontext)
                 self.grandmaupgrade4.buy(self)
             elif self.grandmaorder == 5:
                 self.grandmaupgradeprice = self.grandmaupgrade6.price
-                grandmasupgrade_text = ('Upgrade Grandma:\n{} Cookies'.format(
-                    self.numbercheck(self.grandmaupgrade6.price)))
+                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
+                    self.grandmaupgrade6.name, self.numbercheck(self.grandmaupgrade6.price)))
                 self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
                 self.grandmaupgradetext.configure(
                     text=self.grandmaupgrade6.descriptiontext)
@@ -1250,6 +1261,10 @@ class Cookies:
     def upgradeinfo(self):
         get_info = UpgradeInfo(self)
 
+    def updateupgradesinfo(self, name, description):
+        text = str(name) + ': ' + str(description)
+        self.upgradeinfolist.append(text)
+
 
 class Help:
 
@@ -1276,7 +1291,42 @@ class Help:
 
 class UpgradeInfo:
     def __init__(self, parent):
-        self.info_box = Toplevel()
+        parent.bupgradeinfobutton.configure(state=DISABLED)
+        self.box = Toplevel()
+        self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
+        self.frame = Frame(self.box, bg='#fab875')
+        self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.title = Label(self.frame, font='Arial 16 bold',
+                           text='Upgrades Acquired', justify=CENTER, pady=10, bg='#fab875')
+        self.title.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.childframe = Frame(self.frame, bg='#fab875')
+        self.childframe.pack(side=TOP, expand=TRUE, fill=BOTH, padx=10)
+
+        upgradeinfotext = ''
+        if parent.upgradeinfolist != []:
+            scrollbar = Scrollbar(self.childframe)
+            scrollbar.pack(side=RIGHT, fill=Y)
+            self.text = Text(self.childframe, font='Arial 12',
+                             bg='#fab875', wrap=WORD, yscrollcommand=scrollbar.set)
+
+            for i in parent.upgradeinfolist:
+                self.text.insert(END, i + '\n' * 2)
+
+            self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
+            scrollbar.config(command=self.text.yview)
+
+        else:
+            self.text = Label(self.frame, font='Arial 12', text='You currently have no upgrades.',
+                              pady=10, padx=20, wraplength=500, bg='#fab875')
+            self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
+
+        self.button = Button(self.frame, text="Dismiss", width=10,
+                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5, wraplength=500)
+        self.button.pack(side=BOTTOM, pady=10, expand=TRUE)
+
+    def close(self, parent):
+        self.box.destroy()
+        parent.bupgradeinfobutton.configure(state=NORMAL)
 
 
 class FirstGold:
@@ -1300,7 +1350,7 @@ class FirstGold:
 
 class CursorUpgrades:
     def __init__(self, parent, name, price, unlock, order, effectfunction, effectnumber, description):
-        self.name = name
+        self.name = str(name)
         self.price = price
         self.unlockcondition = unlock
         self.order = order
@@ -1313,6 +1363,8 @@ class CursorUpgrades:
         parent.cookies = parent.cookies - self.price
         parent.pricecheck()
         parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)
         if self.effectfunction == 'times':
             parent.perclick = parent.perclick * self.effectnumber
             parent.cursorcps = parent.cursorcps * self.effectnumber
@@ -1336,10 +1388,18 @@ class CursorUpgrades:
                 self.totalbuildingsexceptcursors * parent.thousandfingersamount
             parent.cpscalc()
 
+    def updateinfo(self, parent):
+        parent.cursorupgradeprice = self.price
+        cursorsupgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.cursorupgradelabel.configure(text=cursorsupgrade_text)
+        parent.cursorupgradetext.configure(
+            text=self.descriptiontext)
+
 
 class GrandmaUpgrades:
     def __init__(self, parent, name, price, unlock, order, effectnumber, description):
-        self.name = name
+        self.name = str(name)
         self.price = price
         self.unlockcondition = unlock
         self.order = order
