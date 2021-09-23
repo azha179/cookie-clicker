@@ -46,9 +46,15 @@ class Cookies:
         self.changecookietext()
         self.cookie_counter.grid(row=1)
 
+        # Per click
+        self.perclicklabel = Label(
+            self.cookie_frame, text='', font='arial 11', pady=5, bg=bgcolour, fg='white')
+        self.updateperclick()
+        self.perclicklabel.grid(row=2)
+
         # Cookie button frame (row2, column0)
         self.cookie_frame = Frame(self.cookie_frame, bg=bgcolour)
-        self.cookie_frame.grid(row=2)
+        self.cookie_frame.grid(row=3)
 
         # Cookie button
         self.cookieimage = PhotoImage(file=r"cookie.png")
@@ -63,7 +69,7 @@ class Cookies:
 
         # Row 3 buttons frame
         self.buttonframe = Frame(self.cookie_frame, bg=bgcolour)
-        self.buttonframe.grid(row=3, pady=20)
+        self.buttonframe.grid(row=4, pady=20)
 
         # Help
         self.help_button = Button(self.buttonframe, text='Help', bg='#188f10', fg='white', padx=10, pady=10,
@@ -103,10 +109,26 @@ class Cookies:
                                            padx=10, command=self.collapsebuilding, highlightthickness=0, bd=0, activebackground=upgradebg, fg='dark grey')
         self.buildingexpandbutton.grid(row=0, column=3, sticky=E)
 
+        # Frame to fit arrows and cps label
+        self.arrowsandcpsframe = Frame(self.upgradesframe, bg=upgradebg)
+        self.arrowsandcpsframe.grid(row=1, columnspan=3)
+
+        self.buildingpagenumber = 1
+
+        # Left Arrow
+        self.previouspagebutton = Button(self.arrowsandcpsframe, text='<', font='arial 22 bold', bg=upgradebg,
+                                         padx=10, highlightthickness=0, bd=0, activebackground=upgradebg, fg='#0f1466', state=DISABLED, command=self.previouspage)
+        self.previouspagebutton.grid(row=0, column=0, sticky=W)
+
         # Cookies per second count
-        self.cpslabel = Label(self.upgradesframe, text='0.0 cps',
+        self.cpslabel = Label(self.arrowsandcpsframe, text='0.0 cps',
                               font='arial 12', pady=5, justify=CENTER, bg=upgradebg)
-        self.cpslabel.grid(row=1, columnspan=3)
+        self.cpslabel.grid(row=0, column=1, sticky='news', padx=100)
+
+        # Right Arrow
+        self.nextpagebutton = Button(self.arrowsandcpsframe, text='>', font='arial 22 bold', bg=upgradebg,
+                                     padx=10, highlightthickness=0, bd=0, activebackground=upgradebg, fg='#0f1466', command=self.nextpage)
+        self.nextpagebutton.grid(row=0, column=2, sticky=E)
 
         # Multiplier buy
         self.buymultiplierframe = Frame(self.upgradesframe, bg='#465d70')
@@ -117,15 +139,15 @@ class Cookies:
         self.multiplierlabel.grid(row=0, column=0, padx=20)
 
         self.multiplierone = Button(self.buymultiplierframe, text='x1', font='arial 12 bold', bg='#465d70', highlightthickness=0,
-                                    bd=0, padx=10, fg='white', activebackground='#465d70', activeforeground='white', command=self.timesone)
+                                    bd=0, padx=10, fg='white', activebackground='#465d70', activeforeground='white', command=self.timesone, cursor="hand2")
         self.multiplierone.grid(row=0, column=1, padx=20)
 
         self.multiplierten = Button(self.buymultiplierframe, text='x10', font='arial 12 ', bg='#465d70', highlightthickness=0,
-                                    bd=0, padx=10, fg='white', activebackground='#465d70', activeforeground='white', command=self.timesten)
+                                    bd=0, padx=10, fg='white', activebackground='#465d70', activeforeground='white', command=self.timesten, cursor="hand2")
         self.multiplierten.grid(row=0, column=2, padx=20)
 
         self.multiplierhundred = Button(self.buymultiplierframe, text='x100', font='arial 12 ', bg='#465d70', highlightthickness=0,
-                                        bd=0, padx=10, fg='white', activebackground='#465d70', activeforeground='white', command=self.timeshundred)
+                                        bd=0, padx=10, fg='white', activebackground='#465d70', activeforeground='white', command=self.timeshundred, cursor="hand2")
         self.multiplierhundred.grid(row=0, column=3, padx=20)
 
         # Assigning Images
@@ -147,7 +169,7 @@ class Cookies:
         self.cursor_amount.grid(row=3, column=1)
 
         self.cursor_buy = Button(self.upgradesframe, command=lambda: [self.cursor(), self.startidletimer(
-        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10)
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
         self.cursor_buy.grid(row=3, column=2, padx=20, pady=10)
 
         # Grandma
@@ -165,7 +187,7 @@ class Cookies:
         self.grandma_amount.grid(row=4, column=1)
 
         self.grandma_buy = Button(self.upgradesframe, command=lambda: [self.grandma(), self.startidletimer(
-        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10)
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
         self.grandma_buy.grid(row=4, column=2, sticky=E, padx=20, pady=10)
 
         # Farm
@@ -183,7 +205,7 @@ class Cookies:
         self.farm_amount.grid(row=5, column=1)
 
         self.farm_buy = Button(self.upgradesframe, command=lambda: [self.farm(), self.startidletimer(
-        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10)
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
         self.farm_buy.grid(row=5, column=2, sticky=E, padx=20, pady=10)
 
         # Mine
@@ -201,7 +223,7 @@ class Cookies:
         self.mine_amount.grid(row=6, column=1)
 
         self.mine_buy = Button(self.upgradesframe, command=lambda: [self.mine(), self.startidletimer(
-        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10)
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
         self.mine_buy.grid(row=6, column=2, sticky=E, padx=20, pady=10)
 
         # Factory
@@ -219,7 +241,7 @@ class Cookies:
         self.factory_amount.grid(row=7, column=1)
 
         self.factory_buy = Button(self.upgradesframe, command=lambda: [self.factory(), self.startidletimer(
-        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10)
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
         self.factory_buy.grid(row=7, column=2, sticky=E, padx=20, pady=10)
 
         # Bank
@@ -237,15 +259,105 @@ class Cookies:
         self.bank_amount.grid(row=8, column=1)
 
         self.bank_buy = Button(self.upgradesframe, command=lambda: [self.bank(), self.startidletimer(
-        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10)
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
         self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)
+
+        # Temple
+        self.temples = 0
+        self.temple_price = 20000000
+        self.basetemple_price = 20000000
+        self.templecps = 7800
+
+        self.temple_label = Label(self.upgradesframe, text='Temple:\n20.0000 million Cookies',
+                                  font='arial 14', padx=20, pady=10, bg=upgradebg, justify=LEFT)
+
+        self.temple_amount = Label(
+            self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
+
+        self.temple_buy = Button(self.upgradesframe, command=lambda: [self.temple(), self.startidletimer(
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
+
+        # Wizard Tower
+        self.wizardtowers = 0
+        self.wizardtower_price = 330000000
+        self.basewizardtower_price = 330000000
+        self.wizardtowercps = 44000
+
+        self.wizardtower_label = Label(self.upgradesframe, text='Wizard Tower:\n330.000 million Cookies',
+                                       font='arial 14', padx=20, pady=10, bg=upgradebg, justify=LEFT)
+
+        self.wizardtower_amount = Label(
+            self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
+
+        self.wizardtower_buy = Button(self.upgradesframe, command=lambda: [self.wizardtower(), self.startidletimer(
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
+
+        # Shipment
+        self.shipments = 0
+        self.shipment_price = 5100000000
+        self.baseshipment_price = 5100000000
+        self.shipmentcps = 260000
+
+        self.shipment_label = Label(self.upgradesframe, text='Shipment:\n5.10000 billion Cookies',
+                                    font='arial 14', padx=20, pady=10, bg=upgradebg, justify=LEFT)
+
+        self.shipment_amount = Label(
+            self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
+
+        self.shipment_buy = Button(self.upgradesframe, command=lambda: [self.shipment(), self.startidletimer(
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
+
+        # Alchemy Lab
+        self.alchemylabs = 0
+        self.alchemylab_price = 75000000000
+        self.basealchemylab_price = 75000000000
+        self.alchemylabcps = 1600000
+
+        self.alchemylab_label = Label(self.upgradesframe, text='Alchemy Lab:\n75.0000 billion Cookies',
+                                      font='arial 14', padx=20, pady=10, bg=upgradebg, justify=LEFT)
+
+        self.alchemylab_amount = Label(
+            self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
+
+        self.alchemylab_buy = Button(self.upgradesframe, command=lambda: [self.alchemylab(), self.startidletimer(
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
+
+        # Portal
+        self.portals = 0
+        self.portal_price = 1000000000000
+        self.baseportal_price = 1000000000000
+        self.portalcps = 10000000
+
+        self.portal_label = Label(self.upgradesframe, text='Portal:\n1.00000 trillion Cookies',
+                                  font='arial 14', padx=20, pady=10, bg=upgradebg, justify=LEFT)
+
+        self.portal_amount = Label(
+            self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
+
+        self.portal_buy = Button(self.upgradesframe, command=lambda: [self.portal(), self.startidletimer(
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
+
+        # Time Machine
+        self.timemachines = 0
+        self.timemachine_price = 14000000000000
+        self.basetimemachine_price = 14000000000000
+        self.timemachinecps = 65000000
+
+        self.timemachine_label = Label(self.upgradesframe, text='Time Machine:\n14.0000 trillion Cookies',
+                                       font='arial 14', padx=20, pady=10, bg=upgradebg, justify=LEFT)
+
+        self.timemachine_amount = Label(
+            self.upgradesframe, text='Amount: 0', font='arial 10', padx=20, pady=10, bg=upgradebg)
+
+        self.timemachine_buy = Button(self.upgradesframe, command=lambda: [self.timemachine(), self.startidletimer(
+        )], image=self.buybuttonimage, highlightthickness=0, bd=0, bg=upgradebg, activebackground=upgradebg, pady=10, cursor="hand2")
 
         # Building Upgrades
 
         # Info Button
         self.upgradeinfolist = []
         self.bupgradeinfobutton = Button(self.buildingupgradeframe, text='Info', font='arial 14 bold', bg='#ffce8f',
-                                         padx=10, highlightthickness=0, bd=0, activebackground='#ffce8f', fg='#2a7dbf', command=self.upgradeinfo)
+                                         padx=10, highlightthickness=0, bd=0, activebackground='#ffce8f', fg='#2a7dbf', command=self.upgradeinfo, cursor="hand2")
         self.bupgradeinfobutton.grid(row=0, column=0, sticky=W)
 
         # Label
@@ -261,6 +373,7 @@ class Cookies:
         # Cursor Upgrade
         self.cursororder = 1
         self.thousandfingersamount = 0
+        self.thousandfingersbought = False
         self.cursorupgradeprice = 100
 
         self.cursorupgrade1 = CursorUpgrades(
@@ -297,7 +410,7 @@ class Cookies:
                                        font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
 
         self.cursorupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.cursorupgrade,
-                                          image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg)
+                                          image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
 
         # Grandma Upgrade
         self.grandmaorder = 1
@@ -323,7 +436,7 @@ class Cookies:
                                         font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
 
         self.grandmaupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.grandmaupgrade,
-                                           image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg)
+                                           image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
 
         # Farm
         self.farmupgradelabel = Label(
@@ -618,6 +731,54 @@ class Cookies:
             self.bank_buy.config(image=self.redbuybutton)
             self.bank_buyable = False
             pass
+        if self.cookies >= self.temple_price:
+            self.temple_buy.config(image=self.buybuttonimage)
+            self.temple_buyable = True
+            pass
+        else:
+            self.temple_buy.config(image=self.redbuybutton)
+            self.temple_buyable = False
+            pass
+        if self.cookies >= self.wizardtower_price:
+            self.wizardtower_buy.config(image=self.buybuttonimage)
+            self.wizardtower_buyable = True
+            pass
+        else:
+            self.wizardtower_buy.config(image=self.redbuybutton)
+            self.wizardtower_buyable = False
+            pass
+        if self.cookies >= self.shipment_price:
+            self.shipment_buy.config(image=self.buybuttonimage)
+            self.shipment_buyable = True
+            pass
+        else:
+            self.shipment_buy.config(image=self.redbuybutton)
+            self.shipment_buyable = False
+            pass
+        if self.cookies >= self.alchemylab_price:
+            self.alchemylab_buy.config(image=self.buybuttonimage)
+            self.alchemylab_buyable = True
+            pass
+        else:
+            self.alchemylab_buy.config(image=self.redbuybutton)
+            self.alchemylab_buyable = False
+            pass
+        if self.cookies >= self.portal_price:
+            self.portal_buy.config(image=self.buybuttonimage)
+            self.portal_buyable = True
+            pass
+        else:
+            self.portal_buy.config(image=self.redbuybutton)
+            self.portal_buyable = False
+            pass
+        if self.cookies >= self.timemachine_price:
+            self.timemachine_buy.config(image=self.buybuttonimage)
+            self.timemachine_buyable = True
+            pass
+        else:
+            self.timemachine_buy.config(image=self.redbuybutton)
+            self.timemachine_buyable = False
+            pass
 
         if self.cookies >= self.cursorupgradeprice:
             self.cursorupgradebutton.config(image=self.buybuttonimage)
@@ -708,6 +869,37 @@ class Cookies:
             bankprice_text = ('Bank:\n{} Cookies'.format(
                 self.numbercheck(self.bank_price)))
             self.bank_label.configure(text=bankprice_text)
+
+            self.temple_price = self.basetemple_price
+            templeprice_text = ('Temple:\n{} Cookies'.format(
+                self.numbercheck(self.temple_price)))
+            self.temple_label.configure(text=templeprice_text)
+
+            self.wizardtower_price = self.basewizardtower_price
+            wizardtowerprice_text = ('Wizard Tower:\n{} Cookies'.format(
+                self.numbercheck(self.wizardtower_price)))
+            self.wizardtower_label.configure(text=wizardtowerprice_text)
+
+            self.shipment_price = self.baseshipment_price
+            shipmentprice_text = ('Shipment:\n{} Cookies'.format(
+                self.numbercheck(self.shipment_price)))
+            self.shipment_label.configure(text=shipmentprice_text)
+
+            self.alchemylab_price = self.basealchemylab_price
+            alchemylabprice_text = ('Alchemy Lab:\n{} Cookies'.format(
+                self.numbercheck(self.alchemylab_price)))
+            self.alchemylab_label.configure(text=alchemylabprice_text)
+
+            self.portal_price = self.baseportal_price
+            portalprice_text = ('Portal:\n{} Cookies'.format(
+                self.numbercheck(self.portal_price)))
+            self.portal_label.configure(text=portalprice_text)
+
+            self.timemachine_price = self.basetimemachine_price
+            timemachineprice_text = ('Time Machine:\n{} Cookies'.format(
+                self.numbercheck(self.timemachine_price)))
+            self.timemachine_label.configure(text=timemachineprice_text)
+
         else:
             self.cursor_price = math.ceil(
                 self.basecursor_price * self.upgrademultiplier)
@@ -745,6 +937,42 @@ class Cookies:
                 self.numbercheck(self.bank_price)))
             self.bank_label.configure(text=bankprice_text)
 
+            self.temple_price = math.ceil(
+                self.basetemple_price * self.upgrademultiplier)
+            templeprice_text = ('Temple:\n{} Cookies'.format(
+                self.numbercheck(self.temple_price)))
+            self.temple_label.configure(text=templeprice_text)
+
+            self.wizardtower_price = math.ceil(
+                self.basewizardtower_price * self.upgrademultiplier)
+            wizardtowerprice_text = ('Wizard Tower:\n{} Cookies'.format(
+                self.numbercheck(self.wizardtower_price)))
+            self.wizardtower_label.configure(text=wizardtowerprice_text)
+
+            self.shipment_price = math.ceil(
+                self.baseshipment_price * self.upgrademultiplier)
+            shipmentprice_text = ('Shipment:\n{} Cookies'.format(
+                self.numbercheck(self.shipment_price)))
+            self.shipment_label.configure(text=shipmentprice_text)
+
+            self.alchemylab_price = math.ceil(
+                self.basealchemylab_price * self.upgrademultiplier)
+            alchemylabprice_text = ('Alchemy Lab:\n{} Cookies'.format(
+                self.numbercheck(self.alchemylab_price)))
+            self.alchemylab_label.configure(text=alchemylabprice_text)
+
+            self.portal_price = math.ceil(
+                self.baseportal_price * self.upgrademultiplier)
+            portalprice_text = ('Portal:\n{} Cookies'.format(
+                self.numbercheck(self.portal_price)))
+            self.portal_label.configure(text=portalprice_text)
+
+            self.timemachine_price = math.ceil(
+                self.basetimemachine_price * self.upgrademultiplier)
+            timemachineprice_text = ('Time Machine:\n{} Cookies'.format(
+                self.numbercheck(self.timemachine_price)))
+            self.timemachine_label.configure(text=timemachineprice_text)
+
         # Change button state
         self.pricecheck()
 
@@ -771,6 +999,8 @@ class Cookies:
 
             # calculates cookies per second
             self.cpscalc()
+
+            self.thousandfingerscalc()
         else:
             pass
 
@@ -820,6 +1050,21 @@ class Cookies:
                     text='')
                 self.cursorupgrade13.buy(self)
 
+    def thousandfingerscalc(self):
+        if self.thousandfingersbought == True:
+            totalbuildingsexceptcursors = self.grandmas + \
+                self.farms + self.mines + self.factories + self.banks + self.temples + \
+                self.wizardtowers + self.shipments + \
+                self.alchemylabs + self.portals + self.timemachines
+            self.perclick = self.perclick + \
+                totalbuildingsexceptcursors * self.thousandfingersamount
+            self.cursorcps = self.cursorcps + \
+                totalbuildingsexceptcursors * self.thousandfingersamount
+            self.cpscalc()
+            self.updateperclick()
+        else:
+            pass
+
     def grandma(self):  # function for buying a grandma
         if self.grandma_buyable == True:
             self.grandmas += 1 * self.upgrademultiplieramount  # Add a grandma
@@ -843,6 +1088,7 @@ class Cookies:
 
             # calculates cookies per second
             self.cpscalc()
+            self.thousandfingerscalc()
         else:
             pass
 
@@ -915,6 +1161,7 @@ class Cookies:
 
             # calculates cookies per second
             self.cpscalc()
+            self.thousandfingerscalc()
         else:
             pass
 
@@ -941,6 +1188,7 @@ class Cookies:
 
             # calculates cookies per second
             self.cpscalc()
+            self.thousandfingerscalc()
         else:
             pass
 
@@ -967,6 +1215,7 @@ class Cookies:
 
             # calculates cookies per second
             self.cpscalc()
+            self.thousandfingerscalc()
         else:
             pass
 
@@ -993,6 +1242,175 @@ class Cookies:
 
             # calculates cookies per second
             self.cpscalc()
+            self.thousandfingerscalc()
+        else:
+            pass
+
+    def temple(self):  # function for buying a temple
+        if self.temple_buyable == True:
+            self.temples += 1 * self.upgrademultiplieramount  # Add a temple
+
+            # Change amount text
+            temples_text = ('Amount: {}'.format(self.temples))
+            self.temple_amount.configure(text=temples_text)
+
+            self.cookies = self.cookies - self.temple_price  # Deduct cookies from price
+
+            # change cookie amount text
+            self.changecookietext()
+
+            # Calculate new price
+            self.basetemple_price = math.ceil(
+                self.basetemple_price * 1.15 * self.upgrademultiplieramount)
+            self.pricecalc()
+
+            # Change button state
+            self.pricecheck()
+
+            # calculates cookies per second
+            self.cpscalc()
+
+            self.thousandfingerscalc()
+        else:
+            pass
+
+    def wizardtower(self):  # function for buying a wizardtower
+        if self.wizardtower_buyable == True:
+            self.wizardtowers += 1 * self.upgrademultiplieramount  # Add a wizardtower
+
+            # Change amount text
+            wizardtowers_text = ('Amount: {}'.format(self.wizardtowers))
+            self.wizardtower_amount.configure(text=wizardtowers_text)
+
+            self.cookies = self.cookies - self.wizardtower_price  # Deduct cookies from price
+
+            # change cookie amount text
+            self.changecookietext()
+
+            # Calculate new price
+            self.basewizardtower_price = math.ceil(
+                self.basewizardtower_price * 1.15 * self.upgrademultiplieramount)
+            self.pricecalc()
+
+            # Change button state
+            self.pricecheck()
+
+            # calculates cookies per second
+            self.cpscalc()
+
+            self.thousandfingerscalc()
+        else:
+            pass
+
+    def shipment(self):  # function for buying a shipment
+        if self.shipment_buyable == True:
+            self.shipments += 1 * self.upgrademultiplieramount  # Add a shipment
+
+            # Change amount text
+            shipments_text = ('Amount: {}'.format(self.shipments))
+            self.shipment_amount.configure(text=shipments_text)
+
+            self.cookies = self.cookies - self.shipment_price  # Deduct cookies from price
+
+            # change cookie amount text
+            self.changecookietext()
+
+            # Calculate new price
+            self.baseshipment_price = math.ceil(
+                self.baseshipment_price * 1.15 * self.upgrademultiplieramount)
+            self.pricecalc()
+
+            # Change button state
+            self.pricecheck()
+
+            # calculates cookies per second
+            self.cpscalc()
+
+            self.thousandfingerscalc()
+        else:
+            pass
+
+    def alchemylab(self):  # function for buying a alchemylab
+        if self.alchemylab_buyable == True:
+            self.alchemylabs += 1 * self.upgrademultiplieramount  # Add a alchemylab
+
+            # Change amount text
+            alchemylabs_text = ('Amount: {}'.format(self.alchemylabs))
+            self.alchemylab_amount.configure(text=alchemylabs_text)
+
+            self.cookies = self.cookies - self.alchemylab_price  # Deduct cookies from price
+
+            # change cookie amount text
+            self.changecookietext()
+
+            # Calculate new price
+            self.basealchemylab_price = math.ceil(
+                self.basealchemylab_price * 1.15 * self.upgrademultiplieramount)
+            self.pricecalc()
+
+            # Change button state
+            self.pricecheck()
+
+            # calculates cookies per second
+            self.cpscalc()
+
+            self.thousandfingerscalc()
+        else:
+            pass
+
+    def portal(self):  # function for buying a portal
+        if self.portal_buyable == True:
+            self.portals += 1 * self.upgrademultiplieramount  # Add a portal
+
+            # Change amount text
+            portals_text = ('Amount: {}'.format(self.portals))
+            self.portal_amount.configure(text=portals_text)
+
+            self.cookies = self.cookies - self.portal_price  # Deduct cookies from price
+
+            # change cookie amount text
+            self.changecookietext()
+
+            # Calculate new price
+            self.baseportal_price = math.ceil(
+                self.baseportal_price * 1.15 * self.upgrademultiplieramount)
+            self.pricecalc()
+
+            # Change button state
+            self.pricecheck()
+
+            # calculates cookies per second
+            self.cpscalc()
+
+            self.thousandfingerscalc()
+        else:
+            pass
+
+    def timemachine(self):  # function for buying a timemachine
+        if self.timemachine_buyable == True:
+            self.timemachines += 1 * self.upgrademultiplieramount  # Add a timemachine
+
+            # Change amount text
+            timemachines_text = ('Amount: {}'.format(self.timemachines))
+            self.timemachine_amount.configure(text=timemachines_text)
+
+            self.cookies = self.cookies - self.timemachine_price  # Deduct cookies from price
+
+            # change cookie amount text
+            self.changecookietext()
+
+            # Calculate new price
+            self.basetimemachine_price = math.ceil(
+                self.basetimemachine_price * 1.15 * self.upgrademultiplieramount)
+            self.pricecalc()
+
+            # Change button state
+            self.pricecheck()
+
+            # calculates cookies per second
+            self.cpscalc()
+
+            self.thousandfingerscalc()
         else:
             pass
 
@@ -1019,117 +1437,134 @@ class Cookies:
     def cpscalc(self):  # calculates cps from number of upgrades owned
         self.cps = self.cursorcps * self.cursors + self.grandmacps * self.grandmas + self.farmcps * \
             self.farms + self.minecps * self.mines + self.factorycps * \
-            self.factories + self.bankcps * self.banks
+            self.factories + self.bankcps * self.banks + self.templecps * self.temples + self.wizardtowercps * self.wizardtowers + self.shipmentcps * \
+            self.shipments + self.alchemylabcps * self.alchemylabs + \
+            self.portalcps * self.portals + self.timemachinecps * self.timemachines
         try:
             cps_text = ('{:.1f} cps'.format(self.numbercheck(self.cps)))
         except ValueError:
             cps_text = ('{} cps'.format(self.numbercheck(self.cps)))
         self.cpslabel.configure(text=cps_text)
 
+    def updateperclick(self):  # updates the label displaying cookies/click value
+        if self.perclick > 1:
+            text = ('{} Cookies/click'.format(self.numbercheck(self.perclick)))
+            self.perclicklabel.configure(text=text)
+        else:
+            text = ('{} Cookie/click'.format(self.numbercheck(self.perclick)))
+            self.perclicklabel.configure(text=text)
+
     def collapsebuilding(self):
-        # self.cookiespersecond.grid_forget()
         self.buildingexpandbutton.configure(
             text='+', command=self.expandbuilding)
-
+        self.arrowsandcpsframe.grid_forget()
+        self.previouspagebutton.grid_forget()
         self.cpslabel.grid_forget()
+        self.nextpagebutton.grid_forget()
         self.buymultiplierframe.grid_forget()
-
         self.multiplierlabel.grid_forget()
-
         self.multiplierone.grid_forget()
-
         self.multiplierten.grid_forget()
-
         self.multiplierhundred.grid_forget()
 
-        self.cursor_label.grid_forget()
+        if self.buildingpagenumber == 1:
+            self.cursor_label.grid_forget()
+            self.cursor_amount.grid_forget()
+            self.cursor_buy.grid_forget()
+            self.grandma_label.grid_forget()
+            self.grandma_amount.grid_forget()
+            self.grandma_buy.grid_forget()
+            self.farm_label.grid_forget()
+            self.farm_amount.grid_forget()
+            self.farm_buy.grid_forget()
+            self.mine_label.grid_forget()
+            self.mine_amount.grid_forget()
+            self.mine_buy.grid_forget()
+            self.factory_label.grid_forget()
+            self.factory_amount.grid_forget()
+            self.factory_buy.grid_forget()
+            self.bank_label.grid_forget()
+            self.bank_amount.grid_forget()
+            self.bank_buy.grid_forget()
 
-        self.cursor_amount.grid_forget()
-
-        self.cursor_buy.grid_forget()
-
-        self.grandma_label.grid_forget()
-
-        self.grandma_amount.grid_forget()
-
-        self.grandma_buy.grid_forget()
-
-        self.farm_label.grid_forget()
-
-        self.farm_amount.grid_forget()
-
-        self.farm_buy.grid_forget()
-
-        self.mine_label.grid_forget()
-
-        self.mine_amount.grid_forget()
-
-        self.mine_buy.grid_forget()
-
-        self.factory_label.grid_forget()
-
-        self.factory_amount.grid_forget()
-
-        self.factory_buy.grid_forget()
-
-        self.bank_label.grid_forget()
-
-        self.bank_amount.grid_forget()
-
-        self.bank_buy.grid_forget()
+        elif self.buildingpagenumber == 2:
+            self.temple_label.grid_forget()
+            self.temple_amount.grid_forget()
+            self.temple_buy.grid_forget()
+            self.wizardtower_label.grid_forget()
+            self.wizardtower_amount.grid_forget()
+            self.wizardtower_buy.grid_forget()
+            self.shipment_label.grid_forget()
+            self.shipment_amount.grid_forget()
+            self.shipment_buy.grid_forget()
+            self.alchemylab_label.grid_forget()
+            self.alchemylab_amount.grid_forget()
+            self.alchemylab_buy.grid_forget()
+            self.portal_label.grid_forget()
+            self.portal_amount.grid_forget()
+            self.portal_buy.grid_forget()
+            self.timemachine_label.grid_forget()
+            self.timemachine_amount.grid_forget()
+            self.timemachine_buy.grid_forget()
 
     def expandbuilding(self):
-        #self.cookiespersecond.grid(row=0, columnspan=3, pady=10)
         self.buildingexpandbutton.configure(
             text='-', command=self.collapsebuilding)
-
-        self.cpslabel.grid(row=1, columnspan=3)
-
+        self.arrowsandcpsframe.grid(row=1, columnspan=3)
+        self.previouspagebutton.grid(row=0, column=0, sticky=W)
+        self.cpslabel.grid(row=0, column=1, sticky='news', padx=100)
+        self.nextpagebutton.grid(row=0, column=2, sticky=E)
         self.buymultiplierframe.grid(row=2, columnspan=3, pady=10)
-
         self.multiplierlabel.grid(row=0, column=0, padx=20)
-
         self.multiplierone.grid(row=0, column=1, padx=20)
-
         self.multiplierten.grid(row=0, column=2, padx=20)
-
         self.multiplierhundred.grid(row=0, column=3, padx=20)
 
-        self.cursor_label.grid(row=3, column=0, sticky=W)
+        if self.buildingpagenumber == 1:
+            self.cursor_label.grid(row=3, column=0, sticky=W)
+            self.cursor_amount.grid(row=3, column=1)
+            self.cursor_buy.grid(row=3, column=2, padx=20, pady=10)
+            self.grandma_label.grid(row=4, column=0, sticky=W)
+            self.grandma_amount.grid(row=4, column=1)
+            self.grandma_buy.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.farm_label.grid(row=5, column=0, sticky=W)
+            self.farm_amount.grid(row=5, column=1)
+            self.farm_buy.grid(row=5, column=2, sticky=E, padx=20, pady=10)
+            self.mine_label.grid(row=6, column=0, sticky=W)
+            self.mine_amount.grid(row=6, column=1)
+            self.mine_buy.grid(row=6, column=2, sticky=E, padx=20, pady=10)
+            self.factory_label.grid(row=7, column=0, sticky=W)
+            self.factory_amount.grid(row=7, column=1)
+            self.factory_buy.grid(
+                row=7, column=2, sticky=E, padx=20, pady=10)
+            self.bank_label.grid(row=8, column=0, sticky=W)
+            self.bank_amount.grid(row=8, column=1)
+            self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)
 
-        self.cursor_amount.grid(row=3, column=1)
-
-        self.cursor_buy.grid(row=3, column=2, padx=20, pady=10)
-
-        self.grandma_label.grid(row=4, column=0, sticky=W)
-
-        self.grandma_amount.grid(row=4, column=1)
-
-        self.grandma_buy.grid(row=4, column=2, sticky=E, padx=20, pady=10)
-
-        self.farm_label.grid(row=5, column=0, sticky=W)
-
-        self.farm_amount.grid(row=5, column=1)
-
-        self.farm_buy.grid(row=5, column=2, sticky=E, padx=20, pady=10)
-
-        self.mine_label.grid(row=6, column=0, sticky=W)
-
-        self.mine_amount.grid(row=6, column=1)
-
-        self.mine_buy.grid(row=6, column=2, sticky=E, padx=20, pady=10)
-
-        self.factory_label.grid(row=7, column=0, sticky=W)
-
-        self.factory_amount.grid(row=7, column=1)
-
-        self.factory_buy.grid(row=7, column=2, sticky=E, padx=20, pady=10)
-
-        self.bank_label.grid(row=8, column=0, sticky=W)
-
-        self.bank_amount.grid(row=8, column=1)
-
-        self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)
+        elif self.buildingpagenumber == 2:
+            self.temple_label.grid(row=3, column=0, sticky=W)
+            self.temple_amount.grid(row=3, column=1)
+            self.temple_buy.grid(row=3, column=2, padx=20, pady=10)
+            self.wizardtower_label.grid(row=4, column=0, sticky=W)
+            self.wizardtower_amount.grid(row=4, column=1)
+            self.wizardtower_buy.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.shipment_label.grid(row=5, column=0, sticky=W)
+            self.shipment_amount.grid(row=5, column=1)
+            self.shipment_buy.grid(
+                row=5, column=2, sticky=E, padx=20, pady=10)
+            self.alchemylab_label.grid(row=6, column=0, sticky=W)
+            self.alchemylab_amount.grid(row=6, column=1)
+            self.alchemylab_buy.grid(
+                row=6, column=2, sticky=E, padx=20, pady=10)
+            self.portal_label.grid(row=7, column=0, sticky=W)
+            self.portal_amount.grid(row=7, column=1)
+            self.portal_buy.grid(row=7, column=2, sticky=E, padx=20, pady=10)
+            self.timemachine_label.grid(row=8, column=0, sticky=W)
+            self.timemachine_amount.grid(row=8, column=1)
+            self.timemachine_buy.grid(
+                row=8, column=2, sticky=E, padx=20, pady=10)
 
     def collapseupgrade(self):
         self.bupgradelabel.grid_forget()
@@ -1137,33 +1572,17 @@ class Cookies:
         self.cursorupgradelabel.grid_forget()
         self.cursorupgradetext.grid_forget()
         self.cursorupgradebutton.grid_forget()
-
-        # Grandma
         self.grandmaupgradelabel.grid_forget()
-
         self.grandmaupgradetext.grid_forget()
-
         self.grandmaupgradebutton.grid_forget()
-
-        # Farm
         self.farmupgradelabel.grid_forget()
-
         self.farmtext.grid_forget()
-
         self.farmupgradebutton.grid_forget()
-
-        # Mine
         self.mineupgradelabel.grid_forget()
-
         self.minetext.grid_forget()
-
         self.mineupgradebutton.grid_forget()
-
-        # Factory
         self.factoryupgradelabel.grid_forget()
-
         self.factorytext.grid_forget()
-
         self.factoryupgradebutton.grid_forget()
 
         self.bupgradeexpandbutton.configure(
@@ -1172,58 +1591,129 @@ class Cookies:
     def expandupgrade(self):
         self.bupgradeexpandbutton.configure(
             command=self.collapseupgrade, text='-')
-
-        # bg colours
-        bgcolour = '#0d6bb8'
-        upgradebg = '#99d1ff'
-        bupgradebg = '#ffcf91'
-
         self.bupgradelabel.grid_forget()
         self.bupgradelabel.grid(row=0, columnspan=3,
                                 pady=10, padx=10, sticky=N)
-
-        # Cursor Upgrade
-
         self.cursorupgradelabel.grid(row=1, column=0, sticky=W)
-
         self.cursorupgradetext.grid(row=1, column=1)
-
         self.cursorupgradebutton.grid(
             row=1, column=2, sticky=E, padx=20, pady=10)
-
-        # Grandma
         self.grandmaupgradelabel.grid(row=2, column=0, sticky=W)
-
         self.grandmaupgradetext.grid(row=2, column=1)
-
         self.grandmaupgradebutton.grid(
             row=2, column=2, sticky=E, padx=20, pady=10)
-
-        # Farm
         self.farmupgradelabel.grid(row=3, column=0, sticky=W)
-
         self.farmtext.grid(row=3, column=1)
-
         self.farmupgradebutton.grid(
             row=3, column=2, sticky=E, padx=20, pady=10)
-
-        # Mine
         self.mineupgradelabel.grid(row=4, column=0, sticky=W)
-
         self.minetext.grid(row=4, column=1)
-
         self.mineupgradebutton.grid(
             row=4, column=2, sticky=E, padx=20, pady=10)
-
-        # Factory
         self.factoryupgradelabel.grid(row=5, column=0, sticky=W)
-
         self.factorytext.grid(row=5, column=1)
-
         self.factoryupgradebutton.grid(
             row=5, column=2, sticky=E, padx=20, pady=10)
 
         self.pricecheck()
+
+    def previouspage(self):
+        if self.buildingpagenumber == 2:
+            self.temple_label.grid_forget()
+            self.temple_amount.grid_forget()
+            self.temple_buy.grid_forget()
+            self.wizardtower_label.grid_forget()
+            self.wizardtower_amount.grid_forget()
+            self.wizardtower_buy.grid_forget()
+            self.shipment_label.grid_forget()
+            self.shipment_amount.grid_forget()
+            self.shipment_buy.grid_forget()
+            self.alchemylab_label.grid_forget()
+            self.alchemylab_amount.grid_forget()
+            self.alchemylab_buy.grid_forget()
+            self.portal_label.grid_forget()
+            self.portal_amount.grid_forget()
+            self.portal_buy.grid_forget()
+            self.timemachine_label.grid_forget()
+            self.timemachine_amount.grid_forget()
+            self.timemachine_buy.grid_forget()
+
+            self.cursor_label.grid(row=3, column=0, sticky=W)
+            self.cursor_amount.grid(row=3, column=1)
+            self.cursor_buy.grid(row=3, column=2, padx=20, pady=10)
+            self.grandma_label.grid(row=4, column=0, sticky=W)
+            self.grandma_amount.grid(row=4, column=1)
+            self.grandma_buy.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.farm_label.grid(row=5, column=0, sticky=W)
+            self.farm_amount.grid(row=5, column=1)
+            self.farm_buy.grid(row=5, column=2, sticky=E, padx=20, pady=10)
+            self.mine_label.grid(row=6, column=0, sticky=W)
+            self.mine_amount.grid(row=6, column=1)
+            self.mine_buy.grid(row=6, column=2, sticky=E, padx=20, pady=10)
+            self.factory_label.grid(row=7, column=0, sticky=W)
+            self.factory_amount.grid(row=7, column=1)
+            self.factory_buy.grid(
+                row=7, column=2, sticky=E, padx=20, pady=10)
+            self.bank_label.grid(row=8, column=0, sticky=W)
+            self.bank_amount.grid(row=8, column=1)
+            self.bank_buy.grid(row=8, column=2, sticky=E, padx=20, pady=10)
+
+            self.previouspagebutton.configure(state=DISABLED)
+            self.nextpagebutton.configure(state=NORMAL)
+            self.buildingpagenumber = 1
+        else:
+            self.previouspagebutton.configure(state=DISABLED)
+
+    def nextpage(self):
+        if self.buildingpagenumber == 1:
+            self.cursor_label.grid_forget()
+            self.cursor_amount.grid_forget()
+            self.cursor_buy.grid_forget()
+            self.grandma_label.grid_forget()
+            self.grandma_amount.grid_forget()
+            self.grandma_buy.grid_forget()
+            self.farm_label.grid_forget()
+            self.farm_amount.grid_forget()
+            self.farm_buy.grid_forget()
+            self.mine_label.grid_forget()
+            self.mine_amount.grid_forget()
+            self.mine_buy.grid_forget()
+            self.factory_label.grid_forget()
+            self.factory_amount.grid_forget()
+            self.factory_buy.grid_forget()
+            self.bank_label.grid_forget()
+            self.bank_amount.grid_forget()
+            self.bank_buy.grid_forget()
+
+            self.temple_label.grid(row=3, column=0, sticky=W)
+            self.temple_amount.grid(row=3, column=1)
+            self.temple_buy.grid(row=3, column=2, padx=20, pady=10)
+            self.wizardtower_label.grid(row=4, column=0, sticky=W)
+            self.wizardtower_amount.grid(row=4, column=1)
+            self.wizardtower_buy.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.shipment_label.grid(row=5, column=0, sticky=W)
+            self.shipment_amount.grid(row=5, column=1)
+            self.shipment_buy.grid(
+                row=5, column=2, sticky=E, padx=20, pady=10)
+            self.alchemylab_label.grid(row=6, column=0, sticky=W)
+            self.alchemylab_amount.grid(row=6, column=1)
+            self.alchemylab_buy.grid(
+                row=6, column=2, sticky=E, padx=20, pady=10)
+            self.portal_label.grid(row=7, column=0, sticky=W)
+            self.portal_amount.grid(row=7, column=1)
+            self.portal_buy.grid(row=7, column=2, sticky=E, padx=20, pady=10)
+            self.timemachine_label.grid(row=8, column=0, sticky=W)
+            self.timemachine_amount.grid(row=8, column=1)
+            self.timemachine_buy.grid(
+                row=8, column=2, sticky=E, padx=20, pady=10)
+
+            self.nextpagebutton.configure(state=DISABLED)
+            self.previouspagebutton.configure(state=NORMAL)
+            self.buildingpagenumber = 2
+        else:
+            self.nextpagebutton.configure(state=DISABLED)
 
     def hoverhelp(self, parent):
         parent.widget['background'] = '#21c716'
@@ -1271,6 +1761,7 @@ class Help:
     def __init__(self, parent):
         parent.help_button.configure(state=DISABLED)
         self.box = Toplevel()
+        self.box.iconbitmap(r'cookieicon.ico')
         self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
         self.frame = Frame(self.box, bg='#fab875', width=600, height=600)
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
@@ -1281,7 +1772,7 @@ class Help:
                           pady=10, padx=20, wraplength=500, bg='#fab875')
         self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
         self.button = Button(self.frame, text="Dismiss", width=10,
-                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5)
+                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5, cursor="hand2")
         self.button.pack(side=BOTTOM, pady=10, expand=TRUE)
 
     def close(self, parent):
@@ -1293,6 +1784,7 @@ class UpgradeInfo:
     def __init__(self, parent):
         parent.bupgradeinfobutton.configure(state=DISABLED)
         self.box = Toplevel()
+        self.box.iconbitmap(r'cookieicon.ico')
         self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
         self.frame = Frame(self.box, bg='#fab875')
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
@@ -1314,6 +1806,7 @@ class UpgradeInfo:
 
             self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
             scrollbar.config(command=self.text.yview)
+            self.text.config(state=DISABLED)
 
         else:
             self.text = Label(self.frame, font='Arial 12', text='You currently have no upgrades.',
@@ -1321,7 +1814,7 @@ class UpgradeInfo:
             self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
 
         self.button = Button(self.frame, text="Dismiss", width=10,
-                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5, wraplength=500)
+                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5, wraplength=500, cursor="hand2")
         self.button.pack(side=BOTTOM, pady=10, expand=TRUE)
 
     def close(self, parent):
@@ -1332,6 +1825,7 @@ class UpgradeInfo:
 class FirstGold:
     def __init__(self, parent):
         self.box = Toplevel()
+        self.box.iconbitmap(r'cookieicon.ico')
         self.frame = Frame(self.box, bg='#ffe76d', width=600, height=600)
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
         self.title = Label(self.frame, font='Arial 16 bold',
@@ -1341,7 +1835,7 @@ class FirstGold:
                           pady=10, padx=20, wraplength=500, bg='#ffe76d')
         self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
         self.button = Button(self.frame, text="Dismiss", width=10,
-                             bg="white", font="arial 10 bold", command=self.close, pady=5)
+                             bg="white", font="arial 10 bold", command=self.close, pady=5, cursor="hand2")
         self.button.pack(side=BOTTOM, pady=10, expand=TRUE)
 
     def close(self):
@@ -1369,7 +1863,9 @@ class CursorUpgrades:
             parent.perclick = parent.perclick * self.effectnumber
             parent.cursorcps = parent.cursorcps * self.effectnumber
             parent.cpscalc()
+            parent.updateperclick()
         if self.effectfunction == 'plus':
+            parent.thousandfingersbought = True
             self.totalbuildingsexceptcursors = parent.grandmas + \
                 parent.farms + parent.mines + parent.factories + parent.banks
             parent.thousandfingersamount = self.effectnumber
@@ -1378,15 +1874,17 @@ class CursorUpgrades:
             parent.cursorcps = parent.cursorcps + \
                 self.totalbuildingsexceptcursors * parent.thousandfingersamount
             parent.cpscalc()
+            parent.updateperclick()
         if self.effectfunction == 'timesthousand':
             self.totalbuildingsexceptcursors = parent.grandmas + \
                 parent.farms + parent.mines + parent.factories + parent.banks
-            self.thousandfingersamount = parent.thousandfingersamount * self.effectnumber
+            parent.thousandfingersamount = parent.thousandfingersamount * self.effectnumber
             parent.perclick = parent.perclick + \
                 self.totalbuildingsexceptcursors * parent.thousandfingersamount
             parent.cursorcps = parent.cursorcps + \
                 self.totalbuildingsexceptcursors * parent.thousandfingersamount
             parent.cpscalc()
+            parent.updateperclick()
 
     def updateinfo(self, parent):
         parent.cursorupgradeprice = self.price
