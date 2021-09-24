@@ -369,6 +369,17 @@ class Cookies:
         self.bupgradeexpandbutton = Button(self.buildingupgradeframe, text='+', font='arial 22 bold', bg='#ffce8f',
                                            padx=10, command=self.expandupgrade, highlightthickness=0, bd=0, activebackground='#ffce8f', fg='dark grey')
         self.bupgradeexpandbutton.grid(row=0, column=2, sticky=NE)
+        
+        # Page arrows
+        self.bupgradepagearrowframe = Frame(self.buildingupgradeframe, bg=bupgradebg, padx=200)
+        self.upgradespreviouspagebutton = Button(self.bupgradepagearrowframe, text='<', font='arial 22 bold', bg=bupgradebg,
+                                         padx=10, highlightthickness=0, bd=0, activebackground=bupgradebg, fg='#3d220f', state=DISABLED, command=self.upgradespreviouspage)
+        self.upgradesnextpagebutton = Button(self.bupgradepagearrowframe, text='>', font='arial 22 bold', bg=bupgradebg,
+                                         padx=10, highlightthickness=0, bd=0, activebackground=bupgradebg, fg='#3d220f', command=self.upgradesnextpage) 
+        self.bupgradepagearrowframe.grid_columnconfigure(0, minsize=100, weight=1)
+        
+        self.upgradepagenumber = 1
+        
 
         # Cursor Upgrade
         self.cursororder = 1
@@ -428,6 +439,20 @@ class Cookies:
             self, 'Double-thick glasses', 500000000, 100, 5, 2, 'Grandmas are twice as efficient.')
         self.grandmaupgrade6 = GrandmaUpgrades(
             self, 'Aging agents', 50000000000, 150, 6, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade7 = GrandmaUpgrades(
+            self, 'Xtreme walkers', 50000000000000, 200, 7, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade8 = GrandmaUpgrades(
+            self, 'The Unbridling', 50000000000000000, 250, 8, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade9 = GrandmaUpgrades(
+            self, 'Reverse dementia', 50000000000000000000, 300, 9, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade10 = GrandmaUpgrades(
+            self, 'Timeproof hair dyes', 50000000000000000000000, 350, 10, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade11 = GrandmaUpgrades(
+            self, 'Good manners', 500000000000000000000000000, 400, 11, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade12 = GrandmaUpgrades(
+            self, 'Generation degeneration', 5000000000000000000000000000000, 450, 12, 2, 'Grandmas are twice as efficient.')
+        self.grandmaupgrade13 = GrandmaUpgrades(
+            self, 'Visits', 50000000000000000000000000000000000, 500, 13, 2, 'Grandmas are twice as efficient.')        
 
         self.grandmaupgradelabel = Label(self.buildingupgradeframe, text='Forwards from grandma:\n1000 Cookies',
                                          font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
@@ -438,35 +463,405 @@ class Cookies:
         self.grandmaupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.grandmaupgrade,
                                            image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
 
-        # Farm
-        self.farmupgradelabel = Label(
-            self.buildingupgradeframe, text='Upgrade Farm', font='arial 14', padx=20, pady=10, bg=bupgradebg)
+        # Farm Upgrade
+        self.farmorder = 1
+        self.farmupgradeprice = 11000
+        
+        self.farmupgrade1 = FarmUpgrades(
+                self, 'Cheap hoes', 11000, 1, 1, 2, 'Farms are twice as efficient.')
+        self.farmupgrade2 = FarmUpgrades(
+                self, 'Fertilizer', 55000, 5, 2, 2, 'Farms are twice as efficient.')
+        self.farmupgrade3 = FarmUpgrades(
+                self, 'Cookie trees', 550000, 25, 3, 2, 'Farms are twice as efficient.')
+        self.farmupgrade4 = FarmUpgrades(
+                self, 'Genetically-modified cookies', 55000000, 50, 4, 2, 'Farms are twice as efficient.')
+        self.farmupgrade5 = FarmUpgrades(
+                self, 'Gingerbread scarecrows', 5500000000, 100, 5, 2, 'Farms are twice as efficient.')
+        self.farmupgrade6 = FarmUpgrades(
+                self, 'Pulsar sprinklers', 550000000000, 150, 6, 2, 'Farms are twice as efficient.')
+        self.farmupgrade7 = FarmUpgrades(
+                self, 'Fudge fungus', 550000000000000, 200, 7, 2, 'Farms are twice as efficient.')
+        self.farmupgrade8 = FarmUpgrades(
+                self, 'Wheat triffids', 550000000000000000, 250, 8, 2, 'Farms are twice as efficient.')
+        self.farmupgrade9 = FarmUpgrades(
+                self, 'Humane pesticides', 550000000000000000000, 300, 9, 2, 'Farms are twice as efficient.')
+        self.farmupgrade10 = FarmUpgrades(
+                self, 'Barnstars', 550000000000000000000000, 350, 10, 2, 'Farms are twice as efficient.')
+        self.farmupgrade11 = FarmUpgrades(
+                self, 'Lindworms', 5500000000000000000000000000, 400, 11, 2, 'Farms are twice as efficient.')
+        self.farmupgrade12 = FarmUpgrades(
+                self, 'Global seed vault', 55000000000000000000000000000000, 450, 12, 2, 'Farms are twice as efficient.')
+        self.farmupgrade13 = FarmUpgrades(
+                self, 'Reverse-veganism', 550000000000000000000000000000000000, 500, 13, 2, 'Farms are twice as efficient.')        
+        
+        self.farmupgradelabel = Label(self.buildingupgradeframe, text='Cheap hoes:\n11000 Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.farmupgradetext = Label(self.buildingupgradeframe, text=self.farmupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.farmupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.farmupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
 
-        self.farmtext = Label(self.buildingupgradeframe, text='Multiplier: 1x',
-                              font='arial 10', padx=20, pady=10, bg=bupgradebg)
+        # Mine Upgrade
+        self.mineorder = 1
+        self.mineupgradeprice = 120000
+        
+        self.mineupgrade1 = MineUpgrades(
+                self, 'Sugar gas', 120000, 1, 1, 2, 'Mines are twice as efficient.')
+        self.mineupgrade2 = MineUpgrades(
+                self, 'Megadrill', 600000, 5, 2, 2, 'Mines are twice as efficient.')
+        self.mineupgrade3 = MineUpgrades(
+                self, 'Ultradrill', 6000000, 25, 3, 2, 'Mines are twice as efficient.')
+        self.mineupgrade4 = MineUpgrades(
+                self, 'Ultimadrill', 600000000, 50, 4, 2, 'Mines are twice as efficient.')
+        self.mineupgrade5 = MineUpgrades(
+                self, 'H-bomb mining', 60000000000, 100, 5, 2, 'Mines are twice as efficient.')
+        self.mineupgrade6 = MineUpgrades(
+                self, 'Coreforge', 6000000000000, 150, 6, 2, 'Mines are twice as efficient.')
+        self.mineupgrade7 = MineUpgrades(
+                self, 'Planetsplitters', 6000000000000000, 200, 7, 2, 'Mines are twice as efficient.')
+        self.mineupgrade8 = MineUpgrades(
+                self, 'Canola oil wells', 6000000000000000000, 250, 8, 2, 'Mines are twice as efficient.')
+        self.mineupgrade9 = MineUpgrades(
+                self, 'Mole people', 6000000000000000000000, 300, 9, 2, 'Mines are twice as efficient.')
+        self.mineupgrade10 = MineUpgrades(
+                self, 'Mine canaries', 6000000000000000000000000, 350, 10, 2, 'Mines are twice as efficient.')
+        self.mineupgrade11 = MineUpgrades(
+                self, 'Bore again', 60000000000000000000000000000, 400, 11, 2, 'Mines are twice as efficient.')
+        self.mineupgrade12 = MineUpgrades(
+                self, 'Air mining', 600000000000000000000000000000000, 450, 12, 2, 'Mines are twice as efficient.')
+        self.mineupgrade13 = MineUpgrades(
+                self, 'Caramel alloys', 6000000000000000000000000000000000000, 500, 13, 2, 'Mines are twice as efficient.')        
+        
+        self.mineupgradelabel = Label(self.buildingupgradeframe, text='Sugar gas:\n120000 Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.mineupgradetext = Label(self.buildingupgradeframe, text=self.mineupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.mineupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.mineupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
 
-        self.farmupgradebutton = Button(self.buildingupgradeframe, text='Buy', font='arial 14 bold',
-                                        padx=20, pady=10, command=self.b, state=DISABLED, fg='green4')
-
-        # Mine
-        self.mineupgradelabel = Label(
-            self.buildingupgradeframe, text='Upgrade Mine', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-
-        self.minetext = Label(self.buildingupgradeframe, text='Multiplier: 1x',
-                              font='arial 10', padx=20, pady=10, bg=bupgradebg)
-
-        self.mineupgradebutton = Button(self.buildingupgradeframe, text='Buy', font='arial 14 bold',
-                                        padx=20, pady=10, command=self.b, state=DISABLED, fg='green4')
-
-        # Factory
-        self.factoryupgradelabel = Label(
-            self.buildingupgradeframe, text='Upgrade Factory', font='arial 14', padx=20, pady=10, bg=bupgradebg)
-
-        self.factorytext = Label(self.buildingupgradeframe, text='Multiplier: 1x',
-                                 font='arial 10', padx=20, pady=10, bg=bupgradebg)
-
-        self.factoryupgradebutton = Button(self.buildingupgradeframe, text='Buy',
-                                           font='arial 14 bold', padx=20, pady=10, command=self.b, state=DISABLED, fg='green4')
+        # Factory Upgrade
+        self.factoryorder = 1
+        self.factoryupgradeprice = 1300000
+        
+        self.factoryupgrade1 = FactoryUpgrades(
+                self, 'Sturdier conveyor belts', 1300000, 1, 1, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade2 = FactoryUpgrades(
+                self, 'Child labor', 6500000, 5, 2, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade3 = FactoryUpgrades(
+                self, 'Sweatshop', 65000000, 25, 3, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade4 = FactoryUpgrades(
+                self, 'Radium reactors', 6500000000, 50, 4, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade5 = FactoryUpgrades(
+                self, 'Recombobulators', 650000000000, 100, 5, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade6 = FactoryUpgrades(
+                self, 'Deep-bake process', 65000000000000, 150, 6, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade7 = FactoryUpgrades(
+                self, 'Cyborg workforce', 65000000000000000, 200, 7, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade8 = FactoryUpgrades(
+                self, '78-hour days', 65000000000000000000, 250, 8, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade9 = FactoryUpgrades(
+                self, 'Machine learning', 65000000000000000000000, 300, 9, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade10 = FactoryUpgrades(
+                self, 'Brownie point system', 65000000000000000000000000, 350, 10, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade11 = FactoryUpgrades(
+                self, '"Volunteer" interns', 650000000000000000000000000000, 400, 11, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade12 = FactoryUpgrades(
+                self, 'Behavioral reframing', 6500000000000000000000000000000000, 450, 12, 2, 'Factories are twice as efficient.')
+        self.factoryupgrade13 = FactoryUpgrades(
+                self, 'The infinity engine', 6000000000000000000000000000000000000, 500, 13, 2, 'Factories are twice as efficient.')        
+        
+        self.factoryupgradelabel = Label(self.buildingupgradeframe, text='Sturdier conveyor belts:\n1.30000 million Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.factoryupgradetext = Label(self.buildingupgradeframe, text=self.factoryupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.factoryupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.factoryupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
+        
+        # Bank Upgrade
+        self.bankorder = 1
+        self.bankupgradeprice = 14000000
+        
+        self.bankupgrade1 = BankUpgrades(
+                self, 'Taller tellers', 14000000, 1, 1, 2, 'Banks are twice as efficient.')
+        self.bankupgrade2 = BankUpgrades(
+                self, 'Scissor-resistant credit cards', 70000000, 5, 2, 2, 'Banks are twice as efficient.')
+        self.bankupgrade3 = BankUpgrades(
+                self, 'Acid-proof vaults', 700000000, 25, 3, 2, 'Banks are twice as efficient.')
+        self.bankupgrade4 = BankUpgrades(
+                self, 'Chocolate coins', 70000000000, 50, 4, 2, 'Banks are twice as efficient.')
+        self.bankupgrade5 = BankUpgrades(
+                self, 'Exponential interest rates', 7000000000000, 100, 5, 2, 'Banks are twice as efficient.')
+        self.bankupgrade6 = BankUpgrades(
+                self, 'Financial zen', 700000000000000, 150, 6, 2, 'Banks are twice as efficient.')
+        self.bankupgrade7 = BankUpgrades(
+                self, 'Way of the wallet', 700000000000000000, 200, 7, 2, 'Banks are twice as efficient.')
+        self.bankupgrade8 = BankUpgrades(
+                self, 'The stuff rationale', 700000000000000000000, 250, 8, 2, 'Banks are twice as efficient.')
+        self.bankupgrade9 = BankUpgrades(
+                self, 'Edible money', 700000000000000000000000, 300, 9, 2, 'Banks are twice as efficient.')
+        self.bankupgrade10 = BankUpgrades(
+                self, 'Grand supercycle', 700000000000000000000000000, 350, 10, 2, 'Banks are twice as efficient.')
+        self.bankupgrade11 = BankUpgrades(
+                self, 'Rules of acquisition', 7000000000000000000000000000000, 400, 11, 2, 'Banks are twice as efficient.')
+        self.bankupgrade12 = BankUpgrades(
+                self, 'Altruistic loop', 70000000000000000000000000000000000, 450, 12, 2, 'Banks are twice as efficient.')
+        self.bankupgrade13 = BankUpgrades(
+                self, 'Diminishing tax returns', 700000000000000000000000000000000000000, 500, 13, 2, 'Banks are twice as efficient.')        
+        
+        self.bankupgradelabel = Label(self.buildingupgradeframe, text='Taller tellers:\n14.0000 million Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.bankupgradetext = Label(self.buildingupgradeframe, text=self.bankupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.bankupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.bankupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")        
+        
+        # Temple Upgrade
+        self.templeorder = 1
+        self.templeupgradeprice = 200000000
+        
+        self.templeupgrade1 = TempleUpgrades(
+                self, 'Golden idols', 200000000, 1, 1, 2, 'Temples are twice as efficient.')
+        self.templeupgrade2 = TempleUpgrades(
+                self, 'Sacrifices', 1000000000, 5, 2, 2, 'Temples are twice as efficient.')
+        self.templeupgrade3 = TempleUpgrades(
+                self, 'Delicious blessing', 10000000000, 25, 3, 2, 'Temples are twice as efficient.')
+        self.templeupgrade4 = TempleUpgrades(
+                self, 'Sun festival', 1000000000000, 50, 4, 2, 'Temples are twice as efficient.')
+        self.templeupgrade5 = TempleUpgrades(
+                self, 'Enlarged pantheon', 100000000000000, 100, 5, 2, 'Temples are twice as efficient.')
+        self.templeupgrade6 = TempleUpgrades(
+                self, 'Great Baker in the sky', 10000000000000000, 150, 6, 2, 'Temples are twice as efficient.')
+        self.templeupgrade7 = TempleUpgrades(
+                self, 'Creation myth', 10000000000000000000, 200, 7, 2, 'Temples are twice as efficient.')
+        self.templeupgrade8 = TempleUpgrades(
+                self, 'Theocracy', 10000000000000000000000, 250, 8, 2, 'Temples are twice as efficient.')
+        self.templeupgrade9 = TempleUpgrades(
+                self, 'Sick rap prayers', 10000000000000000000000000, 300, 9, 2, 'Temples are twice as efficient.')
+        self.templeupgrade10 = TempleUpgrades(
+                self, 'Psalm-reading', 10000000000000000000000000000, 350, 10, 2, 'Temples are twice as efficient.')
+        self.templeupgrade11 = TempleUpgrades(
+                self, 'War of the gods', 100000000000000000000000000000000, 400, 11, 2, 'Temples are twice as efficient.')
+        self.templeupgrade12 = TempleUpgrades(
+                self, 'A novel idea', 1000000000000000000000000000000000000, 450, 12, 2, 'Temples are twice as efficient.')
+        self.templeupgrade13 = TempleUpgrades(
+                self, 'Apparitions', 10000000000000000000000000000000000000000, 500, 13, 2, 'Temples are twice as efficient.')        
+        
+        self.templeupgradelabel = Label(self.buildingupgradeframe, text='Golden idols:\n200.000 million Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.templeupgradetext = Label(self.buildingupgradeframe, text=self.templeupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.templeupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.templeupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
+        
+        # Wizard Tower Upgrade
+        self.wizardtowerorder = 1
+        self.wizardtowerupgradeprice = 3300000000
+        
+        self.wizardtowerupgrade1 = WizardTowerUpgrades(
+                self, 'Pointier hats', 3300000000, 1, 1, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade2 = WizardTowerUpgrades(
+                self, 'Beardlier beards', 16500000000, 5, 2, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade3 = WizardTowerUpgrades(
+                self, 'Ancient grimoires', 165000000000, 25, 3, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade4 = WizardTowerUpgrades(
+                self, 'Kitchen curses', 16500000000000, 50, 4, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade5 = WizardTowerUpgrades(
+                self, 'School of sorcery', 1650000000000000, 100, 5, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade6 = WizardTowerUpgrades(
+                self, 'Dark formulas', 165000000000000000, 150, 6, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade7 = WizardTowerUpgrades(
+                self, 'Cookiemancy', 165000000000000000000, 200, 7, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade8 = WizardTowerUpgrades(
+                self, 'Rabbit trick', 165000000000000000000000, 250, 8, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade9 = WizardTowerUpgrades(
+                self, 'Deluxe tailored wands', 165000000000000000000000000, 300, 9, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade10 = WizardTowerUpgrades(
+                self, 'Immobile spellcasting', 165000000000000000000000000000, 350, 10, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade11 = WizardTowerUpgrades(
+                self, 'Electricity', 1650000000000000000000000000000000, 400, 11, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade12 = WizardTowerUpgrades(
+                self, 'Spelling bees', 16500000000000000000000000000000000000, 450, 12, 2, 'Wizard Towers are twice as efficient.')
+        self.wizardtowerupgrade13 = WizardTowerUpgrades(
+                self, 'Wizard basements', 165000000000000000000000000000000000000000, 500, 13, 2, 'Wizard Towers are twice as efficient.')        
+        
+        self.wizardtowerupgradelabel = Label(self.buildingupgradeframe, text='Pointier hats:\n3.30000 billion Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.wizardtowerupgradetext = Label(self.buildingupgradeframe, text=self.wizardtowerupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.wizardtowerupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.wizardtowerupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
+        
+        # Shipment Upgrade
+        self.shipmentorder = 1
+        self.shipmentupgradeprice = 51000000000
+        
+        self.shipmentupgrade1 = ShipmentUpgrades(
+                self, 'Vanilla nebulae', 51000000000, 1, 1, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade2 = ShipmentUpgrades(
+                self, 'Wormholes', 255000000000, 5, 2, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade3 = ShipmentUpgrades(
+                self, 'Frequent flyer', 2550000000000, 25, 3, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade4 = ShipmentUpgrades(
+                self, 'Warp drive', 255000000000000, 50, 4, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade5 = ShipmentUpgrades(
+                self, 'Chocolate monoliths', 25500000000000000, 100, 5, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade6 = ShipmentUpgrades(
+                self, 'Generation ship', 2550000000000000000, 150, 6, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade7 = ShipmentUpgrades(
+                self, 'Dyson sphere', 2550000000000000000000, 200, 7, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade8 = ShipmentUpgrades(
+                self, 'The final frontier', 2550000000000000000000000, 250, 8, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade9 = ShipmentUpgrades(
+                self, 'Autopilot', 2550000000000000000000000000, 300, 9, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade10 = ShipmentUpgrades(
+                self, 'Restaurants at the end of the universe', 2550000000000000000000000000000, 350, 10, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade11 = ShipmentUpgrades(
+                self, 'Universal alphabet', 25500000000000000000000000000000000, 400, 11, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade12 = ShipmentUpgrades(
+                self, 'Toroid universe', 255000000000000000000000000000000000000, 450, 12, 2, 'Shipments are twice as efficient.')
+        self.shipmentupgrade13 = ShipmentUpgrades(
+                self, 'Prime directive', 2550000000000000000000000000000000000000000, 500, 13, 2, 'Shipments are twice as efficient.')        
+        
+        self.shipmentupgradelabel = Label(self.buildingupgradeframe, text='Vanilla nebulae:\n51.0000 billion Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.shipmentupgradetext = Label(self.buildingupgradeframe, text=self.shipmentupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.shipmentupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.shipmentupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
+        
+        # AlchemyLab Upgrade
+        self.alchemylaborder = 1
+        self.alchemylabupgradeprice = 750000000000
+        
+        self.alchemylabupgrade1 = AlchemyLabUpgrades(
+                self, 'Antimony', 750000000000, 1, 1, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade2 = AlchemyLabUpgrades(
+                self, 'Essence of dough', 3750000000000, 5, 2, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade3 = AlchemyLabUpgrades(
+                self, 'True chocolate', 37500000000000, 25, 3, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade4 = AlchemyLabUpgrades(
+                self, 'Ambrosia', 3750000000000000, 50, 4, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade5 = AlchemyLabUpgrades(
+                self, 'Aqua crustulae', 375000000000000000, 100, 5, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade6 = AlchemyLabUpgrades(
+                self, 'Origin crucible', 37500000000000000000, 150, 6, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade7 = AlchemyLabUpgrades(
+                self, 'Theory of atomic fluidity', 37500000000000000000000, 200, 7, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade8 = AlchemyLabUpgrades(
+                self, 'Beige goo', 37500000000000000000000000, 250, 8, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade9 = AlchemyLabUpgrades(
+                self, 'The advent of chemistry', 37500000000000000000000000000, 300, 9, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade10 = AlchemyLabUpgrades(
+                self, 'On second thought', 37500000000000000000000000000000, 350, 10, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade11 = AlchemyLabUpgrades(
+                self, 'Public betterment', 375000000000000000000000000000000000, 400, 11, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade12 = AlchemyLabUpgrades(
+                self, 'Hermetic reconciliation', 3750000000000000000000000000000000000000, 450, 12, 2, 'Alchemy Labs are twice as efficient.')
+        self.alchemylabupgrade13 = AlchemyLabUpgrades(
+                self, 'Chromatic cycling', 37500000000000000000000000000000000000000000, 500, 13, 2, 'Alchemy Labs are twice as efficient.')        
+        
+        self.alchemylabupgradelabel = Label(self.buildingupgradeframe, text='Antimony:\n750.000 billion Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.alchemylabupgradetext = Label(self.buildingupgradeframe, text=self.alchemylabupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.alchemylabupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.alchemylabupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
+        
+        # Portal Upgrade
+        self.portalorder = 1
+        self.portalupgradeprice = 10000000000000
+        
+        self.portalupgrade1 = PortalUpgrades(
+                self, 'Ancient tablet', 10000000000000, 1, 1, 2, 'Portals are twice as efficient.')
+        self.portalupgrade2 = PortalUpgrades(
+                self, 'Insane oatling workers', 50000000000000, 5, 2, 2, 'Portals are twice as efficient.')
+        self.portalupgrade3 = PortalUpgrades(
+                self, 'Soul bond', 500000000000000, 25, 3, 2, 'Portals are twice as efficient.')
+        self.portalupgrade4 = PortalUpgrades(
+                self, 'Sanity dance', 50000000000000000, 50, 4, 2, 'Portals are twice as efficient.')
+        self.portalupgrade5 = PortalUpgrades(
+                self, 'Brane transplant', 5000000000000000000, 100, 5, 2, 'Portals are twice as efficient.')
+        self.portalupgrade6 = PortalUpgrades(
+                self, 'Deity-sized portals', 500000000000000000000, 150, 6, 2, 'Portals are twice as efficient.')
+        self.portalupgrade7 = PortalUpgrades(
+                self, 'End of times back-up plan', 500000000000000000000000, 200, 7, 2, 'Portals are twice as efficient.')
+        self.portalupgrade8 = PortalUpgrades(
+                self, 'Maddening chants', 500000000000000000000000000, 250, 8, 2, 'Portals are twice as efficient.')
+        self.portalupgrade9 = PortalUpgrades(
+                self, 'The real world', 500000000000000000000000000000, 300, 9, 2, 'Portals are twice as efficient.')
+        self.portalupgrade10 = PortalUpgrades(
+                self, 'Dimensional garbage gulper', 500000000000000000000000000000000, 350, 10, 2, 'Portals are twice as efficient.')
+        self.portalupgrade11 = PortalUpgrades(
+                self, 'Embedded microportals', 5000000000000000000000000000000000000, 400, 11, 2, 'Portals are twice as efficient.')
+        self.portalupgrade12 = PortalUpgrades(
+                self, 'His advent', 50000000000000000000000000000000000000000, 450, 12, 2, 'Portals are twice as efficient.')
+        self.portalupgrade13 = PortalUpgrades(
+                self, 'Domestic rifts', 500000000000000000000000000000000000000000000, 500, 13, 2, 'Portals are twice as efficient.')        
+        
+        self.portalupgradelabel = Label(self.buildingupgradeframe, text='Ancient tablet:\n10.0000 trillion Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.portalupgradetext = Label(self.buildingupgradeframe, text=self.portalupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.portalupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.portalupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")
+        
+        # TimeMachine Upgrade
+        self.timemachineorder = 1
+        self.timemachineupgradeprice = 140000000000000
+        
+        self.timemachineupgrade1 = TimeMachineUpgrades(
+                self, 'Flux capacitors', 140000000000000, 1, 1, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade2 = TimeMachineUpgrades(
+                self, 'Time paradox resolver', 700000000000000, 5, 2, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade3 = TimeMachineUpgrades(
+                self, 'Quantum conundrum', 7000000000000000, 25, 3, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade4 = TimeMachineUpgrades(
+                self, 'Causality enforcer', 700000000000000000, 50, 4, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade5 = TimeMachineUpgrades(
+                self, 'Yestermorrow comparators', 70000000000000000000, 100, 5, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade6 = TimeMachineUpgrades(
+                self, 'Far future enactment', 7000000000000000000000, 150, 6, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade7 = TimeMachineUpgrades(
+                self, 'Great loop hypothesis', 7000000000000000000000000, 200, 7, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade8 = TimeMachineUpgrades(
+                self, 'Cookietopian moments of maybe', 7000000000000000000000000000, 250, 8, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade9 = TimeMachineUpgrades(
+                self, 'Second seconds', 7000000000000000000000000000000, 300, 9, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade10 = TimeMachineUpgrades(
+                self, 'Additional clock hands', 7000000000000000000000000000000000, 350, 10, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade11 = TimeMachineUpgrades(
+                self, 'Nostalgia', 70000000000000000000000000000000000000, 400, 11, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade12 = TimeMachineUpgrades(
+                self, 'Split seconds', 700000000000000000000000000000000000000000, 450, 12, 2, 'Time Machines are twice as efficient.')
+        self.timemachineupgrade13 = TimeMachineUpgrades(
+                self, 'Patience abolished', 7000000000000000000000000000000000000000000000, 500, 13, 2, 'Time Machines are twice as efficient.')        
+        
+        self.timemachineupgradelabel = Label(self.buildingupgradeframe, text='Flux capacitors:\n140.000 trillion Cookies',
+                                             font='arial 14', padx=20, pady=10, bg=bupgradebg, justify=LEFT, wraplength=200)
+        
+        self.timemachineupgradetext = Label(self.buildingupgradeframe, text=self.timemachineupgrade1.descriptiontext,
+                                            font='arial 10', padx=20, pady=10, bg=bupgradebg, justify=CENTER, wraplength=150)
+        
+        self.timemachineupgradebutton = Button(self.buildingupgradeframe, padx=20, pady=10, command=self.timemachineupgrade,
+                                               image=self.redbuybutton, highlightthickness=0, bd=0, bg=bupgradebg, activebackground=bupgradebg, cursor="hand2")        
 
         self.pricecheck()
 
@@ -793,6 +1188,76 @@ class Cookies:
         else:
             self.grandmaupgradebutton.config(image=self.redbuybutton)
             self.grandmaupgradebuyable = False
+            
+        if self.cookies >= self.farmupgradeprice:
+            self.farmupgradebutton.config(image=self.buybuttonimage)
+            self.farmupgradebuyable = True
+        else:
+            self.farmupgradebutton.config(image=self.redbuybutton)
+            self.farmupgradebuyable = False        
+            
+        if self.cookies >= self.mineupgradeprice:
+            self.mineupgradebutton.config(image=self.buybuttonimage)
+            self.mineupgradebuyable = True
+        else:
+            self.mineupgradebutton.config(image=self.redbuybutton)
+            self.mineupgradebuyable = False               
+            
+        if self.cookies >= self.factoryupgradeprice:
+            self.factoryupgradebutton.config(image=self.buybuttonimage)
+            self.factoryupgradebuyable = True
+        else:
+            self.factoryupgradebutton.config(image=self.redbuybutton)
+            self.factoryupgradebuyable = False    
+            
+        if self.cookies >= self.bankupgradeprice:
+            self.bankupgradebutton.config(image=self.buybuttonimage)
+            self.bankupgradebuyable = True
+        else:
+            self.bankupgradebutton.config(image=self.redbuybutton)
+            self.bankupgradebuyable = False           
+            
+        if self.cookies >= self.templeupgradeprice:
+            self.templeupgradebutton.config(image=self.buybuttonimage)
+            self.templeupgradebuyable = True
+        else:
+            self.templeupgradebutton.config(image=self.redbuybutton)
+            self.templeupgradebuyable = False           
+            
+        if self.cookies >= self.wizardtowerupgradeprice:
+            self.wizardtowerupgradebutton.config(image=self.buybuttonimage)
+            self.wizardtowerupgradebuyable = True
+        else:
+            self.wizardtowerupgradebutton.config(image=self.redbuybutton)
+            self.wizardtowerupgradebuyable = False       
+            
+        if self.cookies >= self.shipmentupgradeprice:
+            self.shipmentupgradebutton.config(image=self.buybuttonimage)
+            self.shipmentupgradebuyable = True
+        else:
+            self.shipmentupgradebutton.config(image=self.redbuybutton)
+            self.shipmentupgradebuyable = False           
+            
+        if self.cookies >= self.alchemylabupgradeprice:
+            self.alchemylabupgradebutton.config(image=self.buybuttonimage)
+            self.alchemylabupgradebuyable = True
+        else:
+            self.alchemylabupgradebutton.config(image=self.redbuybutton)
+            self.alchemylabupgradebuyable = False           
+            
+        if self.cookies >= self.portalupgradeprice:
+            self.portalupgradebutton.config(image=self.buybuttonimage)
+            self.portalupgradebuyable = True
+        else:
+            self.portalupgradebutton.config(image=self.redbuybutton)
+            self.portalupgradebuyable = False           
+            
+        if self.cookies >= self.timemachineupgradeprice:
+            self.timemachineupgradebutton.config(image=self.buybuttonimage)
+            self.timemachineupgradebuyable = True
+        else:
+            self.timemachineupgradebutton.config(image=self.redbuybutton)
+            self.timemachineupgradebuyable = False           
 
     def changecookietext(self):  # Change the cookie amount label
         # round down as actual amount can have decimals
@@ -1095,48 +1560,48 @@ class Cookies:
     def grandmaupgrade(self):
         if self.grandmaupgradebuyable == True:
             if self.grandmaorder == 1:
-                self.grandmaupgradeprice = self.grandmaupgrade2.price
-                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
-                    self.grandmaupgrade2.name, self.numbercheck(self.grandmaupgrade2.price)))
-                self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
-                self.grandmaupgradetext.configure(
-                    text=self.grandmaupgrade2.descriptiontext)
+                self.grandmaupgrade2.updateinfo(self)
                 self.grandmaupgrade1.buy(self)
-
             elif self.grandmaorder == 2:
-                self.grandmaupgradeprice = self.grandmaupgrade3.price
-                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
-                    self.grandmaupgrade3.name, self.numbercheck(self.grandmaupgrade3.price)))
-                self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
-                self.grandmaupgradetext.configure(
-                    text=self.grandmaupgrade3.descriptiontext)
+                self.grandmaupgrade3.updateinfo(self)
                 self.grandmaupgrade2.buy(self)
             elif self.grandmaorder == 3:
-                self.grandmaupgradeprice = self.grandmaupgrade4.price
-                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
-                    self.grandmaupgrade4.name, self.numbercheck(self.grandmaupgrade4.price)))
-                self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
-                self.grandmaupgradetext.configure(
-                    text=self.grandmaupgrade4.descriptiontext)
+                self.grandmaupgrade4.updateinfo(self)
                 self.grandmaupgrade3.buy(self)
             elif self.grandmaorder == 4:
-                self.grandmaupgradeprice = self.grandmaupgrade5.price
-                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
-                    self.grandmaupgrade5.name, self.numbercheck(self.grandmaupgrade5.price)))
-                self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
-                self.grandmaupgradetext.configure(
-                    text=self.grandmaupgrade5.descriptiontext)
+                self.grandmaupgrade5.updateinfo(self)
                 self.grandmaupgrade4.buy(self)
             elif self.grandmaorder == 5:
-                self.grandmaupgradeprice = self.grandmaupgrade6.price
-                grandmasupgrade_text = ('{}:\n{} Cookies'.format(
-                    self.grandmaupgrade6.name, self.numbercheck(self.grandmaupgrade6.price)))
-                self.grandmaupgradelabel.configure(text=grandmasupgrade_text)
-                self.grandmaupgradetext.configure(
-                    text=self.grandmaupgrade6.descriptiontext)
+                self.grandmaupgrade6.updateinfo(self)
                 self.grandmaupgrade5.buy(self)
             elif self.grandmaorder == 6:
+                self.grandmaupgrade7.updateinfo(self)
                 self.grandmaupgrade6.buy(self)
+            elif self.grandmaorder == 7:
+                self.grandmaupgrade8.updateinfo(self)
+                self.grandmaupgrade7.buy(self)
+            elif self.grandmaorder == 8:
+                self.grandmaupgrade9.updateinfo(self)
+                self.grandmaupgrade8.buy(self)
+            elif self.grandmaorder == 9:
+                self.grandmaupgrade10.updateinfo(self)
+                self.grandmaupgrade9.buy(self)
+            elif self.grandmaorder == 10:
+                self.grandmaupgrade11.updateinfo(self)
+                self.grandmaupgrade10.buy(self)
+            elif self.grandmaorder == 11:
+                self.grandmaupgrade12.updateinfo(self)
+                self.grandmaupgrade11.buy(self)
+            elif self.grandmaorder == 12:
+                self.grandmaupgrade13.updateinfo(self)
+                self.grandmaupgrade12.buy(self)
+            elif self.grandmaorder == 13:
+                self.grandmaupgradeprice = math.inf
+                self.grandmaupgradelabel.configure(
+                    text='Grandma Upgrades Maxed')
+                self.grandmaupgradetext.configure(
+                    text='')
+                self.grandmaupgrade13.buy(self)
 
     def farm(self):  # function for buying a farm
         if self.farm_buyable == True:
@@ -1164,6 +1629,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+    
+    def farmupgrade(self):
+        if self.farmupgradebuyable == True:
+            if self.farmorder == 1:
+                self.farmupgrade2.updateinfo(self)
+                self.farmupgrade1.buy(self)
+            elif self.farmorder == 2:
+                self.farmupgrade3.updateinfo(self)
+                self.farmupgrade2.buy(self)
+            elif self.farmorder == 3:
+                self.farmupgrade4.updateinfo(self)
+                self.farmupgrade3.buy(self)
+            elif self.farmorder == 4:
+                self.farmupgrade5.updateinfo(self)
+                self.farmupgrade4.buy(self)
+            elif self.farmorder == 5:
+                self.farmupgrade6.updateinfo(self)
+                self.farmupgrade5.buy(self)
+            elif self.farmorder == 6:
+                self.farmupgrade7.updateinfo(self)
+                self.farmupgrade6.buy(self)
+            elif self.farmorder == 7:
+                self.farmupgrade8.updateinfo(self)
+                self.farmupgrade7.buy(self)
+            elif self.farmorder == 8:
+                self.farmupgrade9.updateinfo(self)
+                self.farmupgrade8.buy(self)
+            elif self.farmorder == 9:
+                self.farmupgrade10.updateinfo(self)
+                self.farmupgrade9.buy(self)
+            elif self.farmorder == 10:
+                self.farmupgrade11.updateinfo(self)
+                self.farmupgrade10.buy(self)
+            elif self.farmorder == 11:
+                self.farmupgrade12.updateinfo(self)
+                self.farmupgrade11.buy(self)
+            elif self.farmorder == 12:
+                self.farmupgrade13.updateinfo(self)
+                self.farmupgrade12.buy(self)
+            elif self.farmorder == 13:
+                self.farmupgradeprice = math.inf
+                self.farmupgradelabel.configure(
+                    text='Farm Upgrades Maxed')
+                self.farmupgradetext.configure(
+                    text='')
+                self.farmupgrade13.buy(self)    
 
     def mine(self):  # function for buying a mine
         if self.mine_buyable == True:
@@ -1191,6 +1702,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def mineupgrade(self):
+        if self.mineupgradebuyable == True:
+            if self.mineorder == 1:
+                self.mineupgrade2.updateinfo(self)
+                self.mineupgrade1.buy(self)
+            elif self.mineorder == 2:
+                self.mineupgrade3.updateinfo(self)
+                self.mineupgrade2.buy(self)
+            elif self.mineorder == 3:
+                self.mineupgrade4.updateinfo(self)
+                self.mineupgrade3.buy(self)
+            elif self.mineorder == 4:
+                self.mineupgrade5.updateinfo(self)
+                self.mineupgrade4.buy(self)
+            elif self.mineorder == 5:
+                self.mineupgrade6.updateinfo(self)
+                self.mineupgrade5.buy(self)
+            elif self.mineorder == 6:
+                self.mineupgrade7.updateinfo(self)
+                self.mineupgrade6.buy(self)
+            elif self.mineorder == 7:
+                self.mineupgrade8.updateinfo(self)
+                self.mineupgrade7.buy(self)
+            elif self.mineorder == 8:
+                self.mineupgrade9.updateinfo(self)
+                self.mineupgrade8.buy(self)
+            elif self.mineorder == 9:
+                self.mineupgrade10.updateinfo(self)
+                self.mineupgrade9.buy(self)
+            elif self.mineorder == 10:
+                self.mineupgrade11.updateinfo(self)
+                self.mineupgrade10.buy(self)
+            elif self.mineorder == 11:
+                self.mineupgrade12.updateinfo(self)
+                self.mineupgrade11.buy(self)
+            elif self.mineorder == 12:
+                self.mineupgrade13.updateinfo(self)
+                self.mineupgrade12.buy(self)
+            elif self.mineorder == 13:
+                self.mineupgradeprice = math.inf
+                self.mineupgradelabel.configure(
+                    text='Mine Upgrades Maxed')
+                self.mineupgradetext.configure(
+                    text='')
+                self.mineupgrade13.buy(self)       
 
     def factory(self):  # function for buying a factory
         if self.factory_buyable == True:
@@ -1218,6 +1775,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def factoryupgrade(self):
+        if self.factoryupgradebuyable == True:
+            if self.factoryorder == 1:
+                self.factoryupgrade2.updateinfo(self)
+                self.factoryupgrade1.buy(self)
+            elif self.factoryorder == 2:
+                self.factoryupgrade3.updateinfo(self)
+                self.factoryupgrade2.buy(self)
+            elif self.factoryorder == 3:
+                self.factoryupgrade4.updateinfo(self)
+                self.factoryupgrade3.buy(self)
+            elif self.factoryorder == 4:
+                self.factoryupgrade5.updateinfo(self)
+                self.factoryupgrade4.buy(self)
+            elif self.factoryorder == 5:
+                self.factoryupgrade6.updateinfo(self)
+                self.factoryupgrade5.buy(self)
+            elif self.factoryorder == 6:
+                self.factoryupgrade7.updateinfo(self)
+                self.factoryupgrade6.buy(self)
+            elif self.factoryorder == 7:
+                self.factoryupgrade8.updateinfo(self)
+                self.factoryupgrade7.buy(self)
+            elif self.factoryorder == 8:
+                self.factoryupgrade9.updateinfo(self)
+                self.factoryupgrade8.buy(self)
+            elif self.factoryorder == 9:
+                self.factoryupgrade10.updateinfo(self)
+                self.factoryupgrade9.buy(self)
+            elif self.factoryorder == 10:
+                self.factoryupgrade11.updateinfo(self)
+                self.factoryupgrade10.buy(self)
+            elif self.factoryorder == 11:
+                self.factoryupgrade12.updateinfo(self)
+                self.factoryupgrade11.buy(self)
+            elif self.factoryorder == 12:
+                self.factoryupgrade13.updateinfo(self)
+                self.factoryupgrade12.buy(self)
+            elif self.factoryorder == 13:
+                self.factoryupgradeprice = math.inf
+                self.factoryupgradelabel.configure(
+                    text='Factory Upgrades Maxed')
+                self.factoryupgradetext.configure(
+                    text='')
+                self.factoryupgrade13.buy(self)       
 
     def bank(self):  # function for buying a bank
         if self.bank_buyable == True:
@@ -1245,6 +1848,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def bankupgrade(self):
+        if self.bankupgradebuyable == True:
+            if self.bankorder == 1:
+                self.bankupgrade2.updateinfo(self)
+                self.bankupgrade1.buy(self)
+            elif self.bankorder == 2:
+                self.bankupgrade3.updateinfo(self)
+                self.bankupgrade2.buy(self)
+            elif self.bankorder == 3:
+                self.bankupgrade4.updateinfo(self)
+                self.bankupgrade3.buy(self)
+            elif self.bankorder == 4:
+                self.bankupgrade5.updateinfo(self)
+                self.bankupgrade4.buy(self)
+            elif self.bankorder == 5:
+                self.bankupgrade6.updateinfo(self)
+                self.bankupgrade5.buy(self)
+            elif self.bankorder == 6:
+                self.bankupgrade7.updateinfo(self)
+                self.bankupgrade6.buy(self)
+            elif self.bankorder == 7:
+                self.bankupgrade8.updateinfo(self)
+                self.bankupgrade7.buy(self)
+            elif self.bankorder == 8:
+                self.bankupgrade9.updateinfo(self)
+                self.bankupgrade8.buy(self)
+            elif self.bankorder == 9:
+                self.bankupgrade10.updateinfo(self)
+                self.bankupgrade9.buy(self)
+            elif self.bankorder == 10:
+                self.bankupgrade11.updateinfo(self)
+                self.bankupgrade10.buy(self)
+            elif self.bankorder == 11:
+                self.bankupgrade12.updateinfo(self)
+                self.bankupgrade11.buy(self)
+            elif self.bankorder == 12:
+                self.bankupgrade13.updateinfo(self)
+                self.bankupgrade12.buy(self)
+            elif self.bankorder == 13:
+                self.bankupgradeprice = math.inf
+                self.bankupgradelabel.configure(
+                    text='Bank Upgrades Maxed')
+                self.bankupgradetext.configure(
+                    text='')
+                self.bankupgrade13.buy(self)       
 
     def temple(self):  # function for buying a temple
         if self.temple_buyable == True:
@@ -1273,6 +1922,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def templeupgrade(self):
+        if self.templeupgradebuyable == True:
+            if self.templeorder == 1:
+                self.templeupgrade2.updateinfo(self)
+                self.templeupgrade1.buy(self)
+            elif self.templeorder == 2:
+                self.templeupgrade3.updateinfo(self)
+                self.templeupgrade2.buy(self)
+            elif self.templeorder == 3:
+                self.templeupgrade4.updateinfo(self)
+                self.templeupgrade3.buy(self)
+            elif self.templeorder == 4:
+                self.templeupgrade5.updateinfo(self)
+                self.templeupgrade4.buy(self)
+            elif self.templeorder == 5:
+                self.templeupgrade6.updateinfo(self)
+                self.templeupgrade5.buy(self)
+            elif self.templeorder == 6:
+                self.templeupgrade7.updateinfo(self)
+                self.templeupgrade6.buy(self)
+            elif self.templeorder == 7:
+                self.templeupgrade8.updateinfo(self)
+                self.templeupgrade7.buy(self)
+            elif self.templeorder == 8:
+                self.templeupgrade9.updateinfo(self)
+                self.templeupgrade8.buy(self)
+            elif self.templeorder == 9:
+                self.templeupgrade10.updateinfo(self)
+                self.templeupgrade9.buy(self)
+            elif self.templeorder == 10:
+                self.templeupgrade11.updateinfo(self)
+                self.templeupgrade10.buy(self)
+            elif self.templeorder == 11:
+                self.templeupgrade12.updateinfo(self)
+                self.templeupgrade11.buy(self)
+            elif self.templeorder == 12:
+                self.templeupgrade13.updateinfo(self)
+                self.templeupgrade12.buy(self)
+            elif self.templeorder == 13:
+                self.templeupgradeprice = math.inf
+                self.templeupgradelabel.configure(
+                    text='Temple Upgrades Maxed')
+                self.templeupgradetext.configure(
+                    text='')
+                self.templeupgrade13.buy(self)       
 
     def wizardtower(self):  # function for buying a wizardtower
         if self.wizardtower_buyable == True:
@@ -1301,6 +1996,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def wizardtowerupgrade(self):
+        if self.wizardtowerupgradebuyable == True:
+            if self.wizardtowerorder == 1:
+                self.wizardtowerupgrade2.updateinfo(self)
+                self.wizardtowerupgrade1.buy(self)
+            elif self.wizardtowerorder == 2:
+                self.wizardtowerupgrade3.updateinfo(self)
+                self.wizardtowerupgrade2.buy(self)
+            elif self.wizardtowerorder == 3:
+                self.wizardtowerupgrade4.updateinfo(self)
+                self.wizardtowerupgrade3.buy(self)
+            elif self.wizardtowerorder == 4:
+                self.wizardtowerupgrade5.updateinfo(self)
+                self.wizardtowerupgrade4.buy(self)
+            elif self.wizardtowerorder == 5:
+                self.wizardtowerupgrade6.updateinfo(self)
+                self.wizardtowerupgrade5.buy(self)
+            elif self.wizardtowerorder == 6:
+                self.wizardtowerupgrade7.updateinfo(self)
+                self.wizardtowerupgrade6.buy(self)
+            elif self.wizardtowerorder == 7:
+                self.wizardtowerupgrade8.updateinfo(self)
+                self.wizardtowerupgrade7.buy(self)
+            elif self.wizardtowerorder == 8:
+                self.wizardtowerupgrade9.updateinfo(self)
+                self.wizardtowerupgrade8.buy(self)
+            elif self.wizardtowerorder == 9:
+                self.wizardtowerupgrade10.updateinfo(self)
+                self.wizardtowerupgrade9.buy(self)
+            elif self.wizardtowerorder == 10:
+                self.wizardtowerupgrade11.updateinfo(self)
+                self.wizardtowerupgrade10.buy(self)
+            elif self.wizardtowerorder == 11:
+                self.wizardtowerupgrade12.updateinfo(self)
+                self.wizardtowerupgrade11.buy(self)
+            elif self.wizardtowerorder == 12:
+                self.wizardtowerupgrade13.updateinfo(self)
+                self.wizardtowerupgrade12.buy(self)
+            elif self.wizardtowerorder == 13:
+                self.wizardtowerupgradeprice = math.inf
+                self.wizardtowerupgradelabel.configure(
+                    text='Wizard Tower Upgrades Maxed')
+                self.wizardtowerupgradetext.configure(
+                    text='')
+                self.wizardtowerupgrade13.buy(self)       
 
     def shipment(self):  # function for buying a shipment
         if self.shipment_buyable == True:
@@ -1329,6 +2070,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def shipmentupgrade(self):
+        if self.shipmentupgradebuyable == True:
+            if self.shipmentorder == 1:
+                self.shipmentupgrade2.updateinfo(self)
+                self.shipmentupgrade1.buy(self)
+            elif self.shipmentorder == 2:
+                self.shipmentupgrade3.updateinfo(self)
+                self.shipmentupgrade2.buy(self)
+            elif self.shipmentorder == 3:
+                self.shipmentupgrade4.updateinfo(self)
+                self.shipmentupgrade3.buy(self)
+            elif self.shipmentorder == 4:
+                self.shipmentupgrade5.updateinfo(self)
+                self.shipmentupgrade4.buy(self)
+            elif self.shipmentorder == 5:
+                self.shipmentupgrade6.updateinfo(self)
+                self.shipmentupgrade5.buy(self)
+            elif self.shipmentorder == 6:
+                self.shipmentupgrade7.updateinfo(self)
+                self.shipmentupgrade6.buy(self)
+            elif self.shipmentorder == 7:
+                self.shipmentupgrade8.updateinfo(self)
+                self.shipmentupgrade7.buy(self)
+            elif self.shipmentorder == 8:
+                self.shipmentupgrade9.updateinfo(self)
+                self.shipmentupgrade8.buy(self)
+            elif self.shipmentorder == 9:
+                self.shipmentupgrade10.updateinfo(self)
+                self.shipmentupgrade9.buy(self)
+            elif self.shipmentorder == 10:
+                self.shipmentupgrade11.updateinfo(self)
+                self.shipmentupgrade10.buy(self)
+            elif self.shipmentorder == 11:
+                self.shipmentupgrade12.updateinfo(self)
+                self.shipmentupgrade11.buy(self)
+            elif self.shipmentorder == 12:
+                self.shipmentupgrade13.updateinfo(self)
+                self.shipmentupgrade12.buy(self)
+            elif self.shipmentorder == 13:
+                self.shipmentupgradeprice = math.inf
+                self.shipmentupgradelabel.configure(
+                    text='Shipment Upgrades Maxed')
+                self.shipmentupgradetext.configure(
+                    text='')
+                self.shipmentupgrade13.buy(self)       
 
     def alchemylab(self):  # function for buying a alchemylab
         if self.alchemylab_buyable == True:
@@ -1357,6 +2144,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def alchemylabupgrade(self):
+        if self.alchemylabupgradebuyable == True:
+            if self.alchemylaborder == 1:
+                self.alchemylabupgrade2.updateinfo(self)
+                self.alchemylabupgrade1.buy(self)
+            elif self.alchemylaborder == 2:
+                self.alchemylabupgrade3.updateinfo(self)
+                self.alchemylabupgrade2.buy(self)
+            elif self.alchemylaborder == 3:
+                self.alchemylabupgrade4.updateinfo(self)
+                self.alchemylabupgrade3.buy(self)
+            elif self.alchemylaborder == 4:
+                self.alchemylabupgrade5.updateinfo(self)
+                self.alchemylabupgrade4.buy(self)
+            elif self.alchemylaborder == 5:
+                self.alchemylabupgrade6.updateinfo(self)
+                self.alchemylabupgrade5.buy(self)
+            elif self.alchemylaborder == 6:
+                self.alchemylabupgrade7.updateinfo(self)
+                self.alchemylabupgrade6.buy(self)
+            elif self.alchemylaborder == 7:
+                self.alchemylabupgrade8.updateinfo(self)
+                self.alchemylabupgrade7.buy(self)
+            elif self.alchemylaborder == 8:
+                self.alchemylabupgrade9.updateinfo(self)
+                self.alchemylabupgrade8.buy(self)
+            elif self.alchemylaborder == 9:
+                self.alchemylabupgrade10.updateinfo(self)
+                self.alchemylabupgrade9.buy(self)
+            elif self.alchemylaborder == 10:
+                self.alchemylabupgrade11.updateinfo(self)
+                self.alchemylabupgrade10.buy(self)
+            elif self.alchemylaborder == 11:
+                self.alchemylabupgrade12.updateinfo(self)
+                self.alchemylabupgrade11.buy(self)
+            elif self.alchemylaborder == 12:
+                self.alchemylabupgrade13.updateinfo(self)
+                self.alchemylabupgrade12.buy(self)
+            elif self.alchemylaborder == 13:
+                self.alchemylabupgradeprice = math.inf
+                self.alchemylabupgradelabel.configure(
+                    text='Alchemy Lab Upgrades Maxed')
+                self.alchemylabupgradetext.configure(
+                    text='')
+                self.alchemylabupgrade13.buy(self)       
 
     def portal(self):  # function for buying a portal
         if self.portal_buyable == True:
@@ -1385,6 +2218,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def portalupgrade(self):
+        if self.portalupgradebuyable == True:
+            if self.portalorder == 1:
+                self.portalupgrade2.updateinfo(self)
+                self.portalupgrade1.buy(self)
+            elif self.portalorder == 2:
+                self.portalupgrade3.updateinfo(self)
+                self.portalupgrade2.buy(self)
+            elif self.portalorder == 3:
+                self.portalupgrade4.updateinfo(self)
+                self.portalupgrade3.buy(self)
+            elif self.portalorder == 4:
+                self.portalupgrade5.updateinfo(self)
+                self.portalupgrade4.buy(self)
+            elif self.portalorder == 5:
+                self.portalupgrade6.updateinfo(self)
+                self.portalupgrade5.buy(self)
+            elif self.portalorder == 6:
+                self.portalupgrade7.updateinfo(self)
+                self.portalupgrade6.buy(self)
+            elif self.portalorder == 7:
+                self.portalupgrade8.updateinfo(self)
+                self.portalupgrade7.buy(self)
+            elif self.portalorder == 8:
+                self.portalupgrade9.updateinfo(self)
+                self.portalupgrade8.buy(self)
+            elif self.portalorder == 9:
+                self.portalupgrade10.updateinfo(self)
+                self.portalupgrade9.buy(self)
+            elif self.portalorder == 10:
+                self.portalupgrade11.updateinfo(self)
+                self.portalupgrade10.buy(self)
+            elif self.portalorder == 11:
+                self.portalupgrade12.updateinfo(self)
+                self.portalupgrade11.buy(self)
+            elif self.portalorder == 12:
+                self.portalupgrade13.updateinfo(self)
+                self.portalupgrade12.buy(self)
+            elif self.portalorder == 13:
+                self.portalupgradeprice = math.inf
+                self.portalupgradelabel.configure(
+                    text='Portal Upgrades Maxed')
+                self.portalupgradetext.configure(
+                    text='')
+                self.portalupgrade13.buy(self)       
 
     def timemachine(self):  # function for buying a timemachine
         if self.timemachine_buyable == True:
@@ -1413,6 +2292,52 @@ class Cookies:
             self.thousandfingerscalc()
         else:
             pass
+        
+    def timemachineupgrade(self):
+        if self.timemachineupgradebuyable == True:
+            if self.timemachineorder == 1:
+                self.timemachineupgrade2.updateinfo(self)
+                self.timemachineupgrade1.buy(self)
+            elif self.timemachineorder == 2:
+                self.timemachineupgrade3.updateinfo(self)
+                self.timemachineupgrade2.buy(self)
+            elif self.timemachineorder == 3:
+                self.timemachineupgrade4.updateinfo(self)
+                self.timemachineupgrade3.buy(self)
+            elif self.timemachineorder == 4:
+                self.timemachineupgrade5.updateinfo(self)
+                self.timemachineupgrade4.buy(self)
+            elif self.timemachineorder == 5:
+                self.timemachineupgrade6.updateinfo(self)
+                self.timemachineupgrade5.buy(self)
+            elif self.timemachineorder == 6:
+                self.timemachineupgrade7.updateinfo(self)
+                self.timemachineupgrade6.buy(self)
+            elif self.timemachineorder == 7:
+                self.timemachineupgrade8.updateinfo(self)
+                self.timemachineupgrade7.buy(self)
+            elif self.timemachineorder == 8:
+                self.timemachineupgrade9.updateinfo(self)
+                self.timemachineupgrade8.buy(self)
+            elif self.timemachineorder == 9:
+                self.timemachineupgrade10.updateinfo(self)
+                self.timemachineupgrade9.buy(self)
+            elif self.timemachineorder == 10:
+                self.timemachineupgrade11.updateinfo(self)
+                self.timemachineupgrade10.buy(self)
+            elif self.timemachineorder == 11:
+                self.timemachineupgrade12.updateinfo(self)
+                self.timemachineupgrade11.buy(self)
+            elif self.timemachineorder == 12:
+                self.timemachineupgrade13.updateinfo(self)
+                self.timemachineupgrade12.buy(self)
+            elif self.timemachineorder == 13:
+                self.timemachineupgradeprice = math.inf
+                self.timemachineupgradelabel.configure(
+                    text='Time Machine Upgrades Maxed')
+                self.timemachineupgradetext.configure(
+                    text='')
+                self.timemachineupgrade13.buy(self)       
 
     def cookie_click(self):  # function for clicking on cookie
         self.cookies += self.perclick  # adds cookie by perclick multiplier
@@ -1569,22 +2494,50 @@ class Cookies:
     def collapseupgrade(self):
         self.bupgradelabel.grid_forget()
         self.bupgradelabel.grid(row=0, column=1, pady=10, padx=10, sticky=N)
-        self.cursorupgradelabel.grid_forget()
-        self.cursorupgradetext.grid_forget()
-        self.cursorupgradebutton.grid_forget()
-        self.grandmaupgradelabel.grid_forget()
-        self.grandmaupgradetext.grid_forget()
-        self.grandmaupgradebutton.grid_forget()
-        self.farmupgradelabel.grid_forget()
-        self.farmtext.grid_forget()
-        self.farmupgradebutton.grid_forget()
-        self.mineupgradelabel.grid_forget()
-        self.minetext.grid_forget()
-        self.mineupgradebutton.grid_forget()
-        self.factoryupgradelabel.grid_forget()
-        self.factorytext.grid_forget()
-        self.factoryupgradebutton.grid_forget()
-
+        self.bupgradepagearrowframe.grid_forget()
+        self.upgradespreviouspagebutton.grid_forget()
+        self.upgradesnextpagebutton.grid_forget()
+        
+        if self.upgradepagenumber == 1:
+            self.cursorupgradelabel.grid_forget()
+            self.cursorupgradetext.grid_forget()
+            self.cursorupgradebutton.grid_forget()
+            self.grandmaupgradelabel.grid_forget()
+            self.grandmaupgradetext.grid_forget()
+            self.grandmaupgradebutton.grid_forget()
+            self.farmupgradelabel.grid_forget()
+            self.farmupgradetext.grid_forget()
+            self.farmupgradebutton.grid_forget()
+            self.mineupgradelabel.grid_forget()
+            self.mineupgradetext.grid_forget()
+            self.mineupgradebutton.grid_forget()
+            self.factoryupgradelabel.grid_forget()
+            self.factoryupgradetext.grid_forget()
+            self.factoryupgradebutton.grid_forget()
+            self.bankupgradelabel.grid_forget()
+            self.bankupgradetext.grid_forget()
+            self.bankupgradebutton.grid_forget()
+            
+        elif self.upgradepagenumber == 2:
+            self.templeupgradelabel.grid_forget()
+            self.templeupgradetext.grid_forget()
+            self.templeupgradebutton.grid_forget()
+            self.wizardtowerupgradelabel.grid_forget()
+            self.wizardtowerupgradetext.grid_forget()
+            self.wizardtowerupgradebutton.grid_forget()
+            self.shipmentupgradelabel.grid_forget()
+            self.shipmentupgradetext.grid_forget()
+            self.shipmentupgradebutton.grid_forget()
+            self.alchemylabupgradelabel.grid_forget()
+            self.alchemylabupgradetext.grid_forget()
+            self.alchemylabupgradebutton.grid_forget()
+            self.portalupgradelabel.grid_forget()
+            self.portalupgradetext.grid_forget()
+            self.portalupgradebutton.grid_forget()
+            self.timemachineupgradelabel.grid_forget()
+            self.timemachineupgradetext.grid_forget()
+            self.timemachineupgradebutton.grid_forget()                
+        
         self.bupgradeexpandbutton.configure(
             command=self.expandupgrade, text='+')
 
@@ -1594,26 +2547,62 @@ class Cookies:
         self.bupgradelabel.grid_forget()
         self.bupgradelabel.grid(row=0, columnspan=3,
                                 pady=10, padx=10, sticky=N)
-        self.cursorupgradelabel.grid(row=1, column=0, sticky=W)
-        self.cursorupgradetext.grid(row=1, column=1)
-        self.cursorupgradebutton.grid(
-            row=1, column=2, sticky=E, padx=20, pady=10)
-        self.grandmaupgradelabel.grid(row=2, column=0, sticky=W)
-        self.grandmaupgradetext.grid(row=2, column=1)
-        self.grandmaupgradebutton.grid(
-            row=2, column=2, sticky=E, padx=20, pady=10)
-        self.farmupgradelabel.grid(row=3, column=0, sticky=W)
-        self.farmtext.grid(row=3, column=1)
-        self.farmupgradebutton.grid(
-            row=3, column=2, sticky=E, padx=20, pady=10)
-        self.mineupgradelabel.grid(row=4, column=0, sticky=W)
-        self.minetext.grid(row=4, column=1)
-        self.mineupgradebutton.grid(
-            row=4, column=2, sticky=E, padx=20, pady=10)
-        self.factoryupgradelabel.grid(row=5, column=0, sticky=W)
-        self.factorytext.grid(row=5, column=1)
-        self.factoryupgradebutton.grid(
-            row=5, column=2, sticky=E, padx=20, pady=10)
+
+        self.bupgradepagearrowframe.grid(row=1, columnspan=3)
+        self.upgradespreviouspagebutton.grid(row=0, column=0, sticky=W)
+        self.upgradesnextpagebutton.grid(row=0, column=1, sticky=E)
+        
+        if self.upgradepagenumber == 1:
+            self.cursorupgradelabel.grid(row=2, column=0, sticky=W)
+            self.cursorupgradetext.grid(row=2, column=1)
+            self.cursorupgradebutton.grid(
+                row=2, column=2, sticky=E, padx=20, pady=10)
+            self.grandmaupgradelabel.grid(row=3, column=0, sticky=W)
+            self.grandmaupgradetext.grid(row=3, column=1)
+            self.grandmaupgradebutton.grid(
+                row=3, column=2, sticky=E, padx=20, pady=10)
+            self.farmupgradelabel.grid(row=4, column=0, sticky=W)
+            self.farmupgradetext.grid(row=4, column=1)
+            self.farmupgradebutton.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.mineupgradelabel.grid(row=5, column=0, sticky=W)
+            self.mineupgradetext.grid(row=5, column=1)
+            self.mineupgradebutton.grid(
+                row=5, column=2, sticky=E, padx=20, pady=10)
+            self.factoryupgradelabel.grid(row=6, column=0, sticky=W)
+            self.factoryupgradetext.grid(row=6, column=1)
+            self.factoryupgradebutton.grid(
+                row=6, column=2, sticky=E, padx=20, pady=10)
+            self.bankupgradelabel.grid(row=7, column=0, sticky=W)
+            self.bankupgradetext.grid(row=7, column=1)
+            self.bankupgradebutton.grid(
+                row=7, column=2, sticky=E, padx=20, pady=10)        
+            
+        elif self.upgradepagenumber == 2:
+            self.templeupgradelabel.grid(row=2, column=0, sticky=W)
+            self.templeupgradetext.grid(row=2, column=1)
+            self.templeupgradebutton.grid(
+                row=2, column=2, sticky=E, padx=20, pady=10)
+            self.wizardtowerupgradelabel.grid(row=3, column=0, sticky=W)
+            self.wizardtowerupgradetext.grid(row=3, column=1)
+            self.wizardtowerupgradebutton.grid(
+                row=3, column=2, sticky=E, padx=20, pady=10)
+            self.shipmentupgradelabel.grid(row=4, column=0, sticky=W)
+            self.shipmentupgradetext.grid(row=4, column=1)
+            self.shipmentupgradebutton.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.alchemylabupgradelabel.grid(row=5, column=0, sticky=W)
+            self.alchemylabupgradetext.grid(row=5, column=1)
+            self.alchemylabupgradebutton.grid(
+                row=5, column=2, sticky=E, padx=20, pady=10)
+            self.portalupgradelabel.grid(row=6, column=0, sticky=W)
+            self.portalupgradetext.grid(row=6, column=1)
+            self.portalupgradebutton.grid(
+                row=6, column=2, sticky=E, padx=20, pady=10)
+            self.timemachineupgradelabel.grid(row=7, column=0, sticky=W)
+            self.timemachineupgradetext.grid(row=7, column=1)
+            self.timemachineupgradebutton.grid(
+                row=7, column=2, sticky=E, padx=20, pady=10)                    
 
         self.pricecheck()
 
@@ -1714,6 +2703,110 @@ class Cookies:
             self.buildingpagenumber = 2
         else:
             self.nextpagebutton.configure(state=DISABLED)
+            
+    def upgradespreviouspage(self):
+        if self.upgradepagenumber == 2:
+            self.templeupgradelabel.grid_forget()
+            self.templeupgradetext.grid_forget()
+            self.templeupgradebutton.grid_forget()
+            self.wizardtowerupgradelabel.grid_forget()
+            self.wizardtowerupgradetext.grid_forget()
+            self.wizardtowerupgradebutton.grid_forget()
+            self.shipmentupgradelabel.grid_forget()
+            self.shipmentupgradetext.grid_forget()
+            self.shipmentupgradebutton.grid_forget()
+            self.alchemylabupgradelabel.grid_forget()
+            self.alchemylabupgradetext.grid_forget()
+            self.alchemylabupgradebutton.grid_forget()
+            self.portalupgradelabel.grid_forget()
+            self.portalupgradetext.grid_forget()
+            self.portalupgradebutton.grid_forget()
+            self.timemachineupgradelabel.grid_forget()
+            self.timemachineupgradetext.grid_forget()
+            self.timemachineupgradebutton.grid_forget()            
+            
+            self.cursorupgradelabel.grid(row=2, column=0, sticky=W)
+            self.cursorupgradetext.grid(row=2, column=1)
+            self.cursorupgradebutton.grid(
+                row=2, column=2, sticky=E, padx=20, pady=10)
+            self.grandmaupgradelabel.grid(row=3, column=0, sticky=W)
+            self.grandmaupgradetext.grid(row=3, column=1)
+            self.grandmaupgradebutton.grid(
+                row=3, column=2, sticky=E, padx=20, pady=10)
+            self.farmupgradelabel.grid(row=4, column=0, sticky=W)
+            self.farmupgradetext.grid(row=4, column=1)
+            self.farmupgradebutton.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.mineupgradelabel.grid(row=5, column=0, sticky=W)
+            self.mineupgradetext.grid(row=5, column=1)
+            self.mineupgradebutton.grid(
+                row=5, column=2, sticky=E, padx=20, pady=10)
+            self.factoryupgradelabel.grid(row=6, column=0, sticky=W)
+            self.factoryupgradetext.grid(row=6, column=1)
+            self.factoryupgradebutton.grid(
+                row=6, column=2, sticky=E, padx=20, pady=10)
+            self.bankupgradelabel.grid(row=7, column=0, sticky=W)
+            self.bankupgradetext.grid(row=7, column=1)
+            self.bankupgradebutton.grid(
+                row=7, column=2, sticky=E, padx=20, pady=10)                    
+
+            self.upgradespreviouspagebutton.configure(state=DISABLED)
+            self.upgradesnextpagebutton.configure(state=NORMAL)
+            self.upgradepagenumber = 1
+        else:
+            self.previouspagebutton.configure(state=DISABLED)
+
+    def upgradesnextpage(self):
+        if self.upgradepagenumber == 1:
+            self.cursorupgradelabel.grid_forget()
+            self.cursorupgradetext.grid_forget()
+            self.cursorupgradebutton.grid_forget()
+            self.grandmaupgradelabel.grid_forget()
+            self.grandmaupgradetext.grid_forget()
+            self.grandmaupgradebutton.grid_forget()
+            self.farmupgradelabel.grid_forget()
+            self.farmupgradetext.grid_forget()
+            self.farmupgradebutton.grid_forget()
+            self.mineupgradelabel.grid_forget()
+            self.mineupgradetext.grid_forget()
+            self.mineupgradebutton.grid_forget()
+            self.factoryupgradelabel.grid_forget()
+            self.factoryupgradetext.grid_forget()
+            self.factoryupgradebutton.grid_forget()
+            self.bankupgradelabel.grid_forget()
+            self.bankupgradetext.grid_forget()
+            self.bankupgradebutton.grid_forget()            
+            
+            self.templeupgradelabel.grid(row=2, column=0, sticky=W)
+            self.templeupgradetext.grid(row=2, column=1)
+            self.templeupgradebutton.grid(
+                row=2, column=2, sticky=E, padx=20, pady=10)
+            self.wizardtowerupgradelabel.grid(row=3, column=0, sticky=W)
+            self.wizardtowerupgradetext.grid(row=3, column=1)
+            self.wizardtowerupgradebutton.grid(
+                row=3, column=2, sticky=E, padx=20, pady=10)
+            self.shipmentupgradelabel.grid(row=4, column=0, sticky=W)
+            self.shipmentupgradetext.grid(row=4, column=1)
+            self.shipmentupgradebutton.grid(
+                row=4, column=2, sticky=E, padx=20, pady=10)
+            self.alchemylabupgradelabel.grid(row=5, column=0, sticky=W)
+            self.alchemylabupgradetext.grid(row=5, column=1)
+            self.alchemylabupgradebutton.grid(
+                row=5, column=2, sticky=E, padx=20, pady=10)
+            self.portalupgradelabel.grid(row=6, column=0, sticky=W)
+            self.portalupgradetext.grid(row=6, column=1)
+            self.portalupgradebutton.grid(
+                row=6, column=2, sticky=E, padx=20, pady=10)
+            self.timemachineupgradelabel.grid(row=7, column=0, sticky=W)
+            self.timemachineupgradetext.grid(row=7, column=1)
+            self.timemachineupgradebutton.grid(
+                row=7, column=2, sticky=E, padx=20, pady=10)              
+
+            self.upgradesnextpagebutton.configure(state=DISABLED)
+            self.upgradespreviouspagebutton.configure(state=NORMAL)
+            self.upgradepagenumber = 2
+        else:
+            self.upgradesnextpagebutton.configure(state=DISABLED)    
 
     def hoverhelp(self, parent):
         parent.widget['background'] = '#21c716'
@@ -1866,25 +2959,11 @@ class CursorUpgrades:
             parent.updateperclick()
         if self.effectfunction == 'plus':
             parent.thousandfingersbought = True
-            self.totalbuildingsexceptcursors = parent.grandmas + \
-                parent.farms + parent.mines + parent.factories + parent.banks
             parent.thousandfingersamount = self.effectnumber
-            parent.perclick = parent.perclick + \
-                self.totalbuildingsexceptcursors * parent.thousandfingersamount
-            parent.cursorcps = parent.cursorcps + \
-                self.totalbuildingsexceptcursors * parent.thousandfingersamount
-            parent.cpscalc()
-            parent.updateperclick()
+            parent.thousandfingerscalc()
         if self.effectfunction == 'timesthousand':
-            self.totalbuildingsexceptcursors = parent.grandmas + \
-                parent.farms + parent.mines + parent.factories + parent.banks
             parent.thousandfingersamount = parent.thousandfingersamount * self.effectnumber
-            parent.perclick = parent.perclick + \
-                self.totalbuildingsexceptcursors * parent.thousandfingersamount
-            parent.cursorcps = parent.cursorcps + \
-                self.totalbuildingsexceptcursors * parent.thousandfingersamount
-            parent.cpscalc()
-            parent.updateperclick()
+            parent.thousandfingerscalc()
 
     def updateinfo(self, parent):
         parent.cursorupgradeprice = self.price
@@ -1909,9 +2988,299 @@ class GrandmaUpgrades:
         parent.cookies = parent.cookies - self.price
         parent.pricecheck()
         parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
 
         parent.grandmacps = parent.grandmacps * self.effectnumber
         parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.grandmaupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.grandmaupgradelabel.configure(text=upgrade_text)
+        parent.grandmaupgradetext.configure(
+            text=self.descriptiontext)
+    
+class FarmUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.farmorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.farmcps = parent.farmcps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.farmupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.farmupgradelabel.configure(text=upgrade_text)
+        parent.farmupgradetext.configure(
+            text=self.descriptiontext)
+        
+class MineUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.mineorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.minecps = parent.minecps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.mineupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.mineupgradelabel.configure(text=upgrade_text)
+        parent.mineupgradetext.configure(
+            text=self.descriptiontext)
+        
+class FactoryUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.factoryorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.factorycps = parent.factorycps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.factoryupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.factoryupgradelabel.configure(text=upgrade_text)
+        parent.factoryupgradetext.configure(
+            text=self.descriptiontext)
+        
+class BankUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.bankorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.bankcps = parent.bankcps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.bankupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.bankupgradelabel.configure(text=upgrade_text)
+        parent.bankupgradetext.configure(
+            text=self.descriptiontext)
+        
+class TempleUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.templeorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.templecps = parent.templecps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.templeupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.templeupgradelabel.configure(text=upgrade_text)
+        parent.templeupgradetext.configure(
+            text=self.descriptiontext)
+        
+class WizardTowerUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.wizardtowerorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.wizardtowercps = parent.wizardtowercps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.wizardtowerupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.wizardtowerupgradelabel.configure(text=upgrade_text)
+        parent.wizardtowerupgradetext.configure(
+            text=self.descriptiontext)
+        
+class ShipmentUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.shipmentorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.shipmentcps = parent.shipmentcps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.shipmentupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.shipmentupgradelabel.configure(text=upgrade_text)
+        parent.shipmentupgradetext.configure(
+            text=self.descriptiontext)
+        
+class AlchemyLabUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.alchemylaborder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.alchemylabcps = parent.alchemylabcps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.alchemylabupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.alchemylabupgradelabel.configure(text=upgrade_text)
+        parent.alchemylabupgradetext.configure(
+            text=self.descriptiontext)
+        
+class PortalUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.portalorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.portalcps = parent.portalcps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.portalupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.portalupgradelabel.configure(text=upgrade_text)
+        parent.portalupgradetext.configure(
+            text=self.descriptiontext)
+        
+class TimeMachineUpgrades:
+    def __init__(self, parent, name, price, unlock, order, effectnumber, description):
+        self.name = str(name)
+        self.price = price
+        self.unlockcondition = unlock
+        self.order = order
+        self.effectnumber = effectnumber
+        self.descriptiontext = description
+
+    def buy(self, parent):
+        parent.timemachineorder += 1
+        parent.cookies = parent.cookies - self.price
+        parent.pricecheck()
+        parent.changecookietext()
+        parent.updateupgradesinfo(
+            self.name, self.descriptiontext)        
+
+        parent.timemachinecps = parent.timemachinecps * self.effectnumber
+        parent.cpscalc()
+        
+    def updateinfo(self, parent):
+        parent.timemachineupgradeprice = self.price
+        upgrade_text = ('{}:\n{} Cookies'.format(
+            self.name, parent.numbercheck(self.price)))
+        parent.timemachineupgradelabel.configure(text=upgrade_text)
+        parent.timemachineupgradetext.configure(
+            text=self.descriptiontext)
 
 
 # main routine
