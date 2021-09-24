@@ -1,10 +1,13 @@
 from tkinter import *
+from tkinter.filedialog import askopenfilename
+from tkinter.filedialog import asksaveasfile
 import time
 import threading
 import math
 from functools import partial
 import random
-import csv
+import pickle
+import os
 
 
 class Cookies:
@@ -77,11 +80,25 @@ class Cookies:
         self.help_button.grid(row=0, column=0)
         self.help_button.bind("<Enter>", self.hoverhelp)
         self.help_button.bind("<Leave>", self.unhoverhelp)
+        
+        # Save
+        self.savebutton = Button(self.buttonframe, text='Save', bg='#051a4d', fg='white', padx=10, pady=10,
+                                  command=self.save, font='arial 12 bold', activebackground='#123794', activeforeground='white')
+        self.savebutton.grid(row=0, column=1)
+        self.savebutton.bind("<Enter>", self.hoversave)
+        self.savebutton.bind("<Leave>", self.unhoversave)        
+        
+        # Load
+        self.loadbutton = Button(self.buttonframe, text='Load', bg='#051a4d', fg='white', padx=10, pady=10,
+                                  command=self.load, font='arial 12 bold', activebackground='#123794', activeforeground='white')
+        self.loadbutton.grid(row=0, column=2)
+        self.loadbutton.bind("<Enter>", self.hoverload)
+        self.loadbutton.bind("<Leave>", self.unhoverload)                
 
         # Quit
         self.quit_button = Button(self.buttonframe, text='Quit', bg='#8a1b0f', fg='white', padx=10, pady=10,
                                   command=self.quit, font='arial 12 bold', activebackground='#c42818', activeforeground='white')
-        self.quit_button.grid(row=0, column=1)
+        self.quit_button.grid(row=0, column=3)
         self.quit_button.bind("<Enter>", self.hoverquit)
         self.quit_button.bind("<Leave>", self.unhoverquit)
 
@@ -953,9 +970,6 @@ class Cookies:
 
         self.backgroundpersec = threading.Thread(
             name='idlecookies', target=idlecookies)  # create threading variable
-
-    def b(self):
-        pass
 
     def startidletimer(self):  # starts idle thread
         try:
@@ -2813,6 +2827,18 @@ class Cookies:
 
     def unhoverhelp(self, parent):
         parent.widget['background'] = '#188f10'
+        
+    def hoversave(self, parent):
+        parent.widget['background'] = '#123794'
+    
+    def unhoversave(self, parent):
+        parent.widget['background'] = '#051a4d'
+        
+    def hoverload(self, parent):
+        parent.widget['background'] = '#123794'
+    
+    def unhoverload(self, parent):
+        parent.widget['background'] = '#051a4d'    
 
     def hoverquit(self, parent):
         parent.widget['background'] = '#c42818'
@@ -2847,7 +2873,526 @@ class Cookies:
     def updateupgradesinfo(self, name, description):
         text = str(name) + ': ' + str(description)
         self.upgradeinfolist.append(text)
-
+        
+    def save(self):
+        variables = [self.cookies, self.perclick, self.cursors, self.grandmas, self.farms, self.mines, self.factories, self.banks, self.temples, self.wizardtowers, self.shipments, self.alchemylabs, self.portals, self.timemachines, self.cursororder, self.grandmaorder, self.farmorder, self.mineorder, self.factoryorder, self.bankorder, self.templeorder, self.wizardtowerorder, self.shipmentorder, self.alchemylaborder, self.portalorder, self.timemachineorder, self.firstgoldencookie, self.thousandfingersbought, self.basecursor_price, self.basegrandma_price, self.basefarm_price, self.basemine_price, self.basefactory_price, self.basebank_price, self.basetemple_price, self.basewizardtower_price, self.baseshipment_price, self.basealchemylab_price, self.baseportal_price, self.basetimemachine_price, self.cursorupgradeprice, self.grandmaupgradeprice, self.farmupgradeprice, self.mineupgradeprice, self.factoryupgradeprice, self.bankupgradeprice, self.templeupgradeprice, self.wizardtowerupgradeprice, self.shipmentupgradeprice, self.alchemylabupgradeprice, self.portalupgradeprice, self.timemachineupgradeprice, self.upgradeinfolist]
+        files = [('Cookie Clicker Save File', '*.save')]
+        try:
+            file = asksaveasfile(filetypes = files, defaultextension = files, title='Save Cookie Clicker Game')
+            path = os.path.realpath(file.name)
+            file.close()
+            
+            with open(path, 'wb') as f:
+                pickle.dump(variables, f)
+    
+            opensave = Save(self)
+            
+        except AttributeError:
+            pass
+          
+    def load(self):
+        files = [('Cookie Clicker Save File', '*.save')]
+        
+        try:
+            path = askopenfilename(filetypes = files, defaultextension = files, title = 'Load Cookie Clicker Game')
+            
+            with open(path, 'rb') as f:
+                variables = pickle.load(f)
+                
+            self.cookies=variables[0]
+            self.perclick=variables[1]
+            self.cursors=variables[2]
+            self.grandmas=variables[3]
+            self.farms=variables[4]
+            self.mines=variables[5]
+            self.factories=variables[6]
+            self.banks=variables[7]
+            self.temples=variables[8]
+            self.wizardtowers=variables[9]
+            self.shipments=variables[10]
+            self.alchemylabs=variables[11]
+            self.portals=variables[12]
+            self.timemachines=variables[13]
+            self.cursororder=variables[14]
+            self.grandmaorder=variables[15]
+            self.farmorder=variables[16]
+            self.mineorder=variables[17]
+            self.factoryorder=variables[18]
+            self.bankorder=variables[19]
+            self.templeorder=variables[20]
+            self.wizardtowerorder=variables[21]
+            self.shipmentorder=variables[22]
+            self.alchemylaborder=variables[23]
+            self.portalorder=variables[24]
+            self.timemachineorder=variables[25]
+            self.firstgoldencookie=variables[26]
+            self.thousandfingersbought=variables[27]
+            self.basecursor_price=variables[28]
+            self.basegrandma_price=variables[29]
+            self.basefarm_price=variables[30]
+            self.basemine_price=variables[31]
+            self.basefactory_price=variables[32]
+            self.basebank_price=variables[33]
+            self.basetemple_price=variables[34]
+            self.basewizardtower_price=variables[35]
+            self.baseshipment_price=variables[36]
+            self.basealchemylab_price=variables[37]
+            self.baseportal_price=variables[38]
+            self.basetimemachine_price=variables[39]
+            self.cursorupgradeprice=variables[40]
+            self.grandmaupgradeprice=variables[41]
+            self.farmupgradeprice=variables[42]
+            self.mineupgradeprice=variables[43]
+            self.factoryupgradeprice=variables[44]
+            self.bankupgradeprice=variables[45]
+            self.templeupgradeprice=variables[46]
+            self.wizardtowerupgradeprice=variables[47]
+            self.shipmentupgradeprice=variables[48]
+            self.alchemylabupgradeprice=variables[49]
+            self.portalupgradeprice=variables[50]
+            self.timemachineupgradeprice=variables[51]
+            self.upgradeinfolist=variables[52]
+            
+            # Change amount text
+            cursors_text = ('Amount: {}'.format(self.cursors))
+            self.cursor_amount.configure(text=cursors_text)
+            grandmas_text = ('Amount: {}'.format(self.grandmas))
+            self.grandma_amount.configure(text=grandmas_text)
+            farms_text = ('Amount: {}'.format(self.farms))
+            self.farm_amount.configure(text=farms_text)
+            mines_text = ('Amount: {}'.format(self.mines))
+            self.mine_amount.configure(text=mines_text)
+            factories_text = ('Amount: {}'.format(self.factories))
+            self.factory_amount.configure(text=factories_text)
+            banks_text = ('Amount: {}'.format(self.banks))
+            self.bank_amount.configure(text=banks_text)
+            temples_text = ('Amount: {}'.format(self.temples))
+            self.temple_amount.configure(text=temples_text)
+            wizardtowers_text = ('Amount: {}'.format(self.wizardtowers))
+            self.wizardtower_amount.configure(text=wizardtowers_text)
+            shipments_text = ('Amount: {}'.format(self.shipments))
+            self.shipment_amount.configure(text=shipments_text)
+            alchemylabs_text = ('Amount: {}'.format(self.alchemylabs))
+            self.alchemylab_amount.configure(text=alchemylabs_text)
+            portals_text = ('Amount: {}'.format(self.portals))
+            self.portal_amount.configure(text=portals_text)
+            timemachines_text = ('Amount: {}'.format(self.timemachines))
+            self.timemachine_amount.configure(text=timemachines_text)
+            
+            if self.cursororder == 1:
+                self.cursorupgrade1.updateinfo(self)
+            elif self.cursororder == 2:
+                self.cursorupgrade2.updateinfo(self)
+            elif self.cursororder == 3:
+                self.cursorupgrade3.updateinfo(self)
+            elif self.cursororder == 4:
+                self.cursorupgrade4.updateinfo(self)
+            elif self.cursororder == 5:
+                self.cursorupgrade5.updateinfo(self)
+            elif self.cursororder == 6:
+                self.cursorupgrade6.updateinfo(self)
+            elif self.cursororder == 7:
+                self.cursorupgrade7.updateinfo(self)
+            elif self.cursororder == 8:
+                self.cursorupgrade8.updateinfo(self)
+            elif self.cursororder == 9:
+                self.cursorupgrade9.updateinfo(self)
+            elif self.cursororder == 10:
+                self.cursorupgrade10.updateinfo(self)
+            elif self.cursororder == 13:
+                self.cursorupgrade11.updateinfo(self)
+            elif self.cursororder == 12:
+                self.cursorupgrade12.updateinfo(self)
+            elif self.cursororder == 13:
+                self.cursorupgrade13.updateinfo(self)
+            elif self.cursororder == 14:
+                self.cursorupgradeprice = math.inf
+                self.cursorupgradelabel.configure(
+                        text='Cursor Upgrades Maxed')
+                self.cursorupgradetext.configure(
+                        text='')     
+                
+            if self.grandmaorder == 1:
+                self.grandmaupgrade1.updateinfo(self)
+            elif self.grandmaorder == 2:
+                self.grandmaupgrade2.updateinfo(self)
+            elif self.grandmaorder == 3:
+                self.grandmaupgrade3.updateinfo(self)
+            elif self.grandmaorder == 4:
+                self.grandmaupgrade4.updateinfo(self)
+            elif self.grandmaorder == 5:
+                self.grandmaupgrade5.updateinfo(self)
+            elif self.grandmaorder == 6:
+                self.grandmaupgrade6.updateinfo(self)
+            elif self.grandmaorder == 7:
+                self.grandmaupgrade7.updateinfo(self)
+            elif self.grandmaorder == 8:
+                self.grandmaupgrade8.updateinfo(self)
+            elif self.grandmaorder == 9:
+                self.grandmaupgrade9.updateinfo(self)
+            elif self.grandmaorder == 10:
+                self.grandmaupgrade10.updateinfo(self)
+            elif self.grandmaorder == 13:
+                self.grandmaupgrade11.updateinfo(self)
+            elif self.grandmaorder == 12:
+                self.grandmaupgrade12.updateinfo(self)
+            elif self.grandmaorder == 13:
+                self.grandmaupgrade13.updateinfo(self)
+            elif self.grandmaorder == 14:
+                self.grandmaupgradeprice = math.inf
+                self.grandmaupgradelabel.configure(
+                        text='Grandma Upgrades Maxed')
+                self.grandmaupgradetext.configure(
+                        text='')        
+                
+            if self.farmorder == 1:
+                self.farmupgrade1.updateinfo(self)
+            elif self.farmorder == 2:
+                self.farmupgrade2.updateinfo(self)
+            elif self.farmorder == 3:
+                self.farmupgrade3.updateinfo(self)
+            elif self.farmorder == 4:
+                self.farmupgrade4.updateinfo(self)
+            elif self.farmorder == 5:
+                self.farmupgrade5.updateinfo(self)
+            elif self.farmorder == 6:
+                self.farmupgrade6.updateinfo(self)
+            elif self.farmorder == 7:
+                self.farmupgrade7.updateinfo(self)
+            elif self.farmorder == 8:
+                self.farmupgrade8.updateinfo(self)
+            elif self.farmorder == 9:
+                self.farmupgrade9.updateinfo(self)
+            elif self.farmorder == 10:
+                self.farmupgrade10.updateinfo(self)
+            elif self.farmorder == 13:
+                self.farmupgrade11.updateinfo(self)
+            elif self.farmorder == 12:
+                self.farmupgrade12.updateinfo(self)
+            elif self.farmorder == 13:
+                self.farmupgrade13.updateinfo(self)
+            elif self.farmorder == 14:
+                self.farmupgradeprice = math.inf
+                self.farmupgradelabel.configure(
+                        text='Farm Upgrades Maxed')
+                self.farmupgradetext.configure(
+                        text='')        
+                
+            if self.mineorder == 1:
+                self.mineupgrade1.updateinfo(self)
+            elif self.mineorder == 2:
+                self.mineupgrade2.updateinfo(self)
+            elif self.mineorder == 3:
+                self.mineupgrade3.updateinfo(self)
+            elif self.mineorder == 4:
+                self.mineupgrade4.updateinfo(self)
+            elif self.mineorder == 5:
+                self.mineupgrade5.updateinfo(self)
+            elif self.mineorder == 6:
+                self.mineupgrade6.updateinfo(self)
+            elif self.mineorder == 7:
+                self.mineupgrade7.updateinfo(self)
+            elif self.mineorder == 8:
+                self.mineupgrade8.updateinfo(self)
+            elif self.mineorder == 9:
+                self.mineupgrade9.updateinfo(self)
+            elif self.mineorder == 10:
+                self.mineupgrade10.updateinfo(self)
+            elif self.mineorder == 13:
+                self.mineupgrade11.updateinfo(self)
+            elif self.mineorder == 12:
+                self.mineupgrade12.updateinfo(self)
+            elif self.mineorder == 13:
+                self.mineupgrade13.updateinfo(self)
+            elif self.mineorder == 14:
+                self.mineupgradeprice = math.inf
+                self.mineupgradelabel.configure(
+                        text='Mine Upgrades Maxed')
+                self.mineupgradetext.configure(
+                        text='')        
+                
+            if self.factoryorder == 1:
+                self.factoryupgrade1.updateinfo(self)
+            elif self.factoryorder == 2:
+                self.factoryupgrade2.updateinfo(self)
+            elif self.factoryorder == 3:
+                self.factoryupgrade3.updateinfo(self)
+            elif self.factoryorder == 4:
+                self.factoryupgrade4.updateinfo(self)
+            elif self.factoryorder == 5:
+                self.factoryupgrade5.updateinfo(self)
+            elif self.factoryorder == 6:
+                self.factoryupgrade6.updateinfo(self)
+            elif self.factoryorder == 7:
+                self.factoryupgrade7.updateinfo(self)
+            elif self.factoryorder == 8:
+                self.factoryupgrade8.updateinfo(self)
+            elif self.factoryorder == 9:
+                self.factoryupgrade9.updateinfo(self)
+            elif self.factoryorder == 10:
+                self.factoryupgrade10.updateinfo(self)
+            elif self.factoryorder == 13:
+                self.factoryupgrade11.updateinfo(self)
+            elif self.factoryorder == 12:
+                self.factoryupgrade12.updateinfo(self)
+            elif self.factoryorder == 13:
+                self.factoryupgrade13.updateinfo(self)
+            elif self.factoryorder == 14:
+                self.factoryupgradeprice = math.inf
+                self.factoryupgradelabel.configure(
+                        text='Factory Upgrades Maxed')
+                self.factoryupgradetext.configure(
+                        text='')
+                    
+            if self.bankorder == 1:
+                self.bankupgrade1.updateinfo(self)
+            elif self.bankorder == 2:
+                self.bankupgrade2.updateinfo(self)
+            elif self.bankorder == 3:
+                self.bankupgrade3.updateinfo(self)
+            elif self.bankorder == 4:
+                self.bankupgrade4.updateinfo(self)
+            elif self.bankorder == 5:
+                self.bankupgrade5.updateinfo(self)
+            elif self.bankorder == 6:
+                self.bankupgrade6.updateinfo(self)
+            elif self.bankorder == 7:
+                self.bankupgrade7.updateinfo(self)
+            elif self.bankorder == 8:
+                self.bankupgrade8.updateinfo(self)
+            elif self.bankorder == 9:
+                self.bankupgrade9.updateinfo(self)
+            elif self.bankorder == 10:
+                self.bankupgrade10.updateinfo(self)
+            elif self.bankorder == 13:
+                self.bankupgrade11.updateinfo(self)
+            elif self.bankorder == 12:
+                self.bankupgrade12.updateinfo(self)
+            elif self.bankorder == 13:
+                self.bankupgrade13.updateinfo(self)
+            elif self.bankorder == 14:
+                self.bankupgradeprice = math.inf
+                self.bankupgradelabel.configure(
+                        text='Cursor Upgrades Maxed')
+                self.bankupgradetext.configure(
+                        text='')        
+                
+            if self.templeorder == 1:
+                self.templeupgrade1.updateinfo(self)
+            elif self.templeorder == 2:
+                self.templeupgrade2.updateinfo(self)
+            elif self.templeorder == 3:
+                self.templeupgrade3.updateinfo(self)
+            elif self.templeorder == 4:
+                self.templeupgrade4.updateinfo(self)
+            elif self.templeorder == 5:
+                self.templeupgrade5.updateinfo(self)
+            elif self.templeorder == 6:
+                self.templeupgrade6.updateinfo(self)
+            elif self.templeorder == 7:
+                self.templeupgrade7.updateinfo(self)
+            elif self.templeorder == 8:
+                self.templeupgrade8.updateinfo(self)
+            elif self.templeorder == 9:
+                self.templeupgrade9.updateinfo(self)
+            elif self.templeorder == 10:
+                self.templeupgrade10.updateinfo(self)
+            elif self.templeorder == 13:
+                self.templeupgrade11.updateinfo(self)
+            elif self.templeorder == 12:
+                self.templeupgrade12.updateinfo(self)
+            elif self.templeorder == 13:
+                self.templeupgrade13.updateinfo(self)
+            elif self.templeorder == 14:
+                self.templeupgradeprice = math.inf
+                self.templeupgradelabel.configure(
+                        text='Temple Upgrades Maxed')
+                self.templeupgradetext.configure(
+                        text='')        
+                
+            if self.wizardtowerorder == 1:
+                self.wizardtowerupgrade1.updateinfo(self)
+            elif self.wizardtowerorder == 2:
+                self.wizardtowerupgrade2.updateinfo(self)
+            elif self.wizardtowerorder == 3:
+                self.wizardtowerupgrade3.updateinfo(self)
+            elif self.wizardtowerorder == 4:
+                self.wizardtowerupgrade4.updateinfo(self)
+            elif self.wizardtowerorder == 5:
+                self.wizardtowerupgrade5.updateinfo(self)
+            elif self.wizardtowerorder == 6:
+                self.wizardtowerupgrade6.updateinfo(self)
+            elif self.wizardtowerorder == 7:
+                self.wizardtowerupgrade7.updateinfo(self)
+            elif self.wizardtowerorder == 8:
+                self.wizardtowerupgrade8.updateinfo(self)
+            elif self.wizardtowerorder == 9:
+                self.wizardtowerupgrade9.updateinfo(self)
+            elif self.wizardtowerorder == 10:
+                self.wizardtowerupgrade10.updateinfo(self)
+            elif self.wizardtowerorder == 13:
+                self.wizardtowerupgrade11.updateinfo(self)
+            elif self.wizardtowerorder == 12:
+                self.wizardtowerupgrade12.updateinfo(self)
+            elif self.wizardtowerorder == 13:
+                self.wizardtowerupgrade13.updateinfo(self)
+            elif self.wizardtowerorder == 14:
+                self.wizardtowerupgradeprice = math.inf
+                self.wizardtowerupgradelabel.configure(
+                        text='Wizard Tower Upgrades Maxed')
+                self.wizardtowerupgradetext.configure(
+                        text='')        
+                
+            if self.shipmentorder == 1:
+                self.shipmentupgrade1.updateinfo(self)
+            elif self.shipmentorder == 2:
+                self.shipmentupgrade2.updateinfo(self)
+            elif self.shipmentorder == 3:
+                self.shipmentupgrade3.updateinfo(self)
+            elif self.shipmentorder == 4:
+                self.shipmentupgrade4.updateinfo(self)
+            elif self.shipmentorder == 5:
+                self.shipmentupgrade5.updateinfo(self)
+            elif self.shipmentorder == 6:
+                self.shipmentupgrade6.updateinfo(self)
+            elif self.shipmentorder == 7:
+                self.shipmentupgrade7.updateinfo(self)
+            elif self.shipmentorder == 8:
+                self.shipmentupgrade8.updateinfo(self)
+            elif self.shipmentorder == 9:
+                self.shipmentupgrade9.updateinfo(self)
+            elif self.shipmentorder == 10:
+                self.shipmentupgrade10.updateinfo(self)
+            elif self.shipmentorder == 13:
+                self.shipmentupgrade11.updateinfo(self)
+            elif self.shipmentorder == 12:
+                self.shipmentupgrade12.updateinfo(self)
+            elif self.shipmentorder == 13:
+                self.shipmentupgrade13.updateinfo(self)
+            elif self.shipmentorder == 14:
+                self.shipmentupgradeprice = math.inf
+                self.shipmentupgradelabel.configure(
+                        text='Wizard Tower Upgrades Maxed')
+                self.shipmentupgradetext.configure(
+                        text='')        
+                
+            if self.alchemylaborder == 1:
+                self.alchemylabupgrade1.updateinfo(self)
+            elif self.alchemylaborder == 2:
+                self.alchemylabupgrade2.updateinfo(self)
+            elif self.alchemylaborder == 3:
+                self.alchemylabupgrade3.updateinfo(self)
+            elif self.alchemylaborder == 4:
+                self.alchemylabupgrade4.updateinfo(self)
+            elif self.alchemylaborder == 5:
+                self.alchemylabupgrade5.updateinfo(self)
+            elif self.alchemylaborder == 6:
+                self.alchemylabupgrade6.updateinfo(self)
+            elif self.alchemylaborder == 7:
+                self.alchemylabupgrade7.updateinfo(self)
+            elif self.alchemylaborder == 8:
+                self.alchemylabupgrade8.updateinfo(self)
+            elif self.alchemylaborder == 9:
+                self.alchemylabupgrade9.updateinfo(self)
+            elif self.alchemylaborder == 10:
+                self.alchemylabupgrade10.updateinfo(self)
+            elif self.alchemylaborder == 13:
+                self.alchemylabupgrade11.updateinfo(self)
+            elif self.alchemylaborder == 12:
+                self.alchemylabupgrade12.updateinfo(self)
+            elif self.alchemylaborder == 13:
+                self.alchemylabupgrade13.updateinfo(self)
+            elif self.alchemylaborder == 14:
+                self.alchemylabupgradeprice = math.inf
+                self.alchemylabupgradelabel.configure(
+                        text='Alchemy Lab Upgrades Maxed')
+                self.alchemylabupgradetext.configure(
+                        text='')        
+                
+            if self.portalorder == 1:
+                self.portalupgrade1.updateinfo(self)
+            elif self.portalorder == 2:
+                self.portalupgrade2.updateinfo(self)
+            elif self.portalorder == 3:
+                self.portalupgrade3.updateinfo(self)
+            elif self.portalorder == 4:
+                self.portalupgrade4.updateinfo(self)
+            elif self.portalorder == 5:
+                self.portalupgrade5.updateinfo(self)
+            elif self.portalorder == 6:
+                self.portalupgrade6.updateinfo(self)
+            elif self.portalorder == 7:
+                self.portalupgrade7.updateinfo(self)
+            elif self.portalorder == 8:
+                self.portalupgrade8.updateinfo(self)
+            elif self.portalorder == 9:
+                self.portalupgrade9.updateinfo(self)
+            elif self.portalorder == 10:
+                self.portalupgrade10.updateinfo(self)
+            elif self.portalorder == 13:
+                self.portalupgrade11.updateinfo(self)
+            elif self.portalorder == 12:
+                self.portalupgrade12.updateinfo(self)
+            elif self.portalorder == 13:
+                self.portalupgrade13.updateinfo(self)
+            elif self.portalorder == 14:
+                self.portalupgradeprice = math.inf
+                self.portalupgradelabel.configure(
+                        text='Portal Upgrades Maxed')
+                self.portalupgradetext.configure(
+                        text='')        
+                
+            if self.timemachineorder == 1:
+                self.timemachineupgrade1.updateinfo(self)
+            elif self.timemachineorder == 2:
+                self.timemachineupgrade2.updateinfo(self)
+            elif self.timemachineorder == 3:
+                self.timemachineupgrade3.updateinfo(self)
+            elif self.timemachineorder == 4:
+                self.timemachineupgrade4.updateinfo(self)
+            elif self.timemachineorder == 5:
+                self.timemachineupgrade5.updateinfo(self)
+            elif self.timemachineorder == 6:
+                self.timemachineupgrade6.updateinfo(self)
+            elif self.timemachineorder == 7:
+                self.timemachineupgrade7.updateinfo(self)
+            elif self.timemachineorder == 8:
+                self.timemachineupgrade8.updateinfo(self)
+            elif self.timemachineorder == 9:
+                self.timemachineupgrade9.updateinfo(self)
+            elif self.timemachineorder == 10:
+                self.timemachineupgrade10.updateinfo(self)
+            elif self.timemachineorder == 13:
+                self.timemachineupgrade11.updateinfo(self)
+            elif self.timemachineorder == 12:
+                self.timemachineupgrade12.updateinfo(self)
+            elif self.timemachineorder == 13:
+                self.timemachineupgrade13.updateinfo(self)
+            elif self.timemachineorder == 14:
+                self.timemachineupgradeprice = math.inf
+                self.timemachineupgradelabel.configure(
+                        text='Time Machine Upgrades Maxed')
+                self.timemachineupgradetext.configure(
+                        text='')        
+            
+            self.pricecalc()
+            self.pricecheck()
+            self.thousandfingerscalc()
+            self.updateperclick()
+            self.cpscalc()
+            self.changecookietext()
+            
+            totalbuildingsexceptcursors = self.grandmas + \
+                    self.farms + self.mines + self.factories + self.banks + self.temples + \
+                    self.wizardtowers + self.shipments + \
+                    self.alchemylabs + self.portals + self.timemachines
+            if totalbuildingsexceptcursors > 0:
+                self.startidletimer()
+                
+        except FileNotFoundError:
+            pass
+                
+        
 
 class Help:
 
@@ -2871,6 +3416,29 @@ class Help:
     def close(self, parent):
         self.box.destroy()
         parent.help_button.configure(state=NORMAL)
+        
+class Save:
+
+    def __init__(self, parent):
+        parent.savebutton.configure(state=DISABLED)
+        self.box = Toplevel()
+        self.box.iconbitmap(r'cookieicon.ico')
+        self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
+        self.frame = Frame(self.box, bg='#fab875', width=600, height=600)
+        self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.title = Label(self.frame, font='Arial 16 bold',
+                           text='Game Saved', justify=CENTER, pady=10, bg='#fab875')
+        self.title.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.text = Label(self.frame, font='Arial 12', text='Your game has been saved as a .save file. Use this file to load the game from your current progress by clicking the Load button',
+                          pady=10, padx=20, wraplength=500, bg='#fab875')
+        self.text.pack(side=TOP, expand=TRUE, fill=BOTH)
+        self.button = Button(self.frame, text="Dismiss", width=10,
+                             bg="white", font="arial 10 bold", command=partial(self.close, parent), pady=5, cursor="hand2")
+        self.button.pack(side=BOTTOM, pady=10, expand=TRUE)
+
+    def close(self, parent):
+        self.box.destroy()
+        parent.savebutton.configure(state=NORMAL)
 
 
 class UpgradeInfo:
