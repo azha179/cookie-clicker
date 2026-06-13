@@ -1,0 +1,35 @@
+stopping thread
+stopping thread when sleep time is long
+shorten large numbers
+hover tech
+images
+preventing buying if not sufficient cookiess
+buy button hover when red
+shorten large numbers using E
+upgrades
+each upgrade has order number : start from 1
+buildingorder = 1
+when upgrade is bought : building order = 2 -> shows next orders upgrade
+name, price, unlock, order, effectfunction, effectnumber)
+cursor thousand fingers upgrade - wont update when buy new building
+fixing resolution problems
+how to do info
+
+to do 
+upgrades
+window which shows upgrades - done
+expand upgrades - done
+next page on buildings / upgrades - done
+perclick label - done
+saving and loading
+
+make it look better
+
+11/8 fix price 
+13/8 fixed x1 multiplier 
+5. Chagned upgrades to display da name, cleaned upgrade def code by adding def to class, made info window
+6. thousand fingers FIXed by adding definition which is called every time building is bought
+rest of buildings + page 
+added per click
+7. REST OF UPGRADES
+8. saves and loads
