@@ -9,6 +9,10 @@ import random
 import pickle
 import os
 
+# Absolute path to the bundled assets, resolved relative to this file so the
+# game runs correctly regardless of the current working directory.
+ASSETS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+
 
 class Cookies:
     def __init__(self, parent):
@@ -60,10 +64,10 @@ class Cookies:
         self.cookie_frame.grid(row=3)
 
         # Cookie button
-        self.cookieimage = PhotoImage(file=r"cookie.png")
-        self.hovercookieimage = PhotoImage(file=r"hovercookie.png")
-        self.goldcookieimage = PhotoImage(file=r"goldcookie.png")
-        self.hovergoldcookieimage = PhotoImage(file=r"hovergoldcookie.png")
+        self.cookieimage = PhotoImage(file=os.path.join(ASSETS_DIR, "cookie.png"))
+        self.hovercookieimage = PhotoImage(file=os.path.join(ASSETS_DIR, "hovercookie.png"))
+        self.goldcookieimage = PhotoImage(file=os.path.join(ASSETS_DIR, "goldcookie.png"))
+        self.hovergoldcookieimage = PhotoImage(file=os.path.join(ASSETS_DIR, "hovergoldcookie.png"))
         self.cookie_button = Button(self.cookie_frame, image=self.cookieimage, command=self.cookie_click,
                                     highlightthickness=0, bd=0, bg=bgcolour, activebackground=bgcolour)
         self.cookie_button.grid(row=0, column=0)
@@ -168,8 +172,8 @@ class Cookies:
         self.multiplierhundred.grid(row=0, column=3, padx=20)
 
         # Assigning Images
-        self.buybuttonimage = PhotoImage(file=r"buy_button.png")
-        self.redbuybutton = PhotoImage(file=r"buy_button_red.png")
+        self.buybuttonimage = PhotoImage(file=os.path.join(ASSETS_DIR, "buy_button.png"))
+        self.redbuybutton = PhotoImage(file=os.path.join(ASSETS_DIR, "buy_button_red.png"))
 
         # Cursor
         self.cursors = 0
@@ -3399,7 +3403,7 @@ class Help:
     def __init__(self, parent):
         parent.help_button.configure(state=DISABLED)
         self.box = Toplevel()
-        self.box.iconbitmap(r'cookieicon.ico')
+        self.box.iconbitmap(os.path.join(ASSETS_DIR, "cookieicon.ico"))
         self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
         self.frame = Frame(self.box, bg='#fab875', width=600, height=600)
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
@@ -3422,7 +3426,7 @@ class Save:
     def __init__(self, parent):
         parent.savebutton.configure(state=DISABLED)
         self.box = Toplevel()
-        self.box.iconbitmap(r'cookieicon.ico')
+        self.box.iconbitmap(os.path.join(ASSETS_DIR, "cookieicon.ico"))
         self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
         self.frame = Frame(self.box, bg='#fab875', width=600, height=600)
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
@@ -3445,7 +3449,7 @@ class UpgradeInfo:
     def __init__(self, parent):
         parent.bupgradeinfobutton.configure(state=DISABLED)
         self.box = Toplevel()
-        self.box.iconbitmap(r'cookieicon.ico')
+        self.box.iconbitmap(os.path.join(ASSETS_DIR, "cookieicon.ico"))
         self.box.protocol("WM_DELETE_WINDOW", partial(self.close, parent))
         self.frame = Frame(self.box, bg='#fab875')
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
@@ -3486,7 +3490,7 @@ class UpgradeInfo:
 class FirstGold:
     def __init__(self, parent):
         self.box = Toplevel()
-        self.box.iconbitmap(r'cookieicon.ico')
+        self.box.iconbitmap(os.path.join(ASSETS_DIR, "cookieicon.ico"))
         self.frame = Frame(self.box, bg='#ffe76d', width=600, height=600)
         self.frame.pack(side=TOP, expand=TRUE, fill=BOTH)
         self.title = Label(self.frame, font='Arial 16 bold',
@@ -3855,7 +3859,7 @@ class TimeMachineUpgrades:
 if __name__ == "__main__":
     root = Tk()
     root.title("Cookie Clicker")
-    root.iconbitmap(r'cookieicon.ico')
+    root.iconbitmap(os.path.join(ASSETS_DIR, "cookieicon.ico"))
     root.resizable(0, 0)
     Generate = Cookies(root)
     root.mainloop()

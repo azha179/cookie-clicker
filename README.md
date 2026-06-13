@@ -10,7 +10,7 @@ Click the cookie to bake cookies, buy buildings to generate cookies per second, 
 python cookie_clicker.py
 ```
 
-Requires Python 3 with Tkinter (included in standard installs). The image assets in this folder must be kept alongside the script.
+Requires Python 3 with Tkinter (included in standard installs). No third-party packages are needed. The image assets live in [`assets/`](assets/) and must stay alongside the script.
 
 ## History
 
